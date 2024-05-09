@@ -22,7 +22,7 @@ class ResponseController extends Controller
                 ->with('topics', $topics);
         }else{
             return redirect()
-                ->route('home')
+                ->route('response.finish')
                 ->withErrors(['message' => 'Nenhum Tema cadastrado!']);
         }
         
