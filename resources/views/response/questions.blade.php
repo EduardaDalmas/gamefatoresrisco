@@ -27,6 +27,13 @@
                             <iframe width="750" height="515" src="https://www.youtube.com/embed/VPtcAtAuuQE?si=CrIX2-SdTUoxSse8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div> -->
                        
+                        @if ($question->text)
+                            <div class="form-floating mt-4">
+                                <textarea class="form-control" placeholder="Digite sua resposta" id="textanswer" style="height: 100px"></textarea>
+                            </div>
+                        @endif
+                        
+
                         <div class="btn-group-vertical mt-5 centralizar" role="group" aria-label="Vertical radio toggle button group">
                             @foreach ($question->options as $index => $option)
                                 <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio{{$index}}" autocomplete="off" value="{{$option->id}}">
@@ -74,7 +81,10 @@
 
         let data = {
             option_id: $('input[name=vbtn-radio]:checked').val(),
+            text_answer: $("#textanswer").val(),
         }
+
+        console.log(data);
 
         let ajax = new Ajax('{{ route("response.ajax.question") }}');
 

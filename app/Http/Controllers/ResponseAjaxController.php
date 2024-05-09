@@ -14,11 +14,15 @@ class ResponseAjaxController extends Controller
     {
         try {
             $option = Option::findOrFail($request->option_id);
+            $textAnswer = $request->input('text_answer');
             $person = Auth::user()->person;
 
             $answer = new Answer();
             $answer->option()->associate($option);
             $answer->person()->associate($person);
+            if ($textAnswer !== null) {
+                $answer->text_answer = $textAnswer;
+            }
             $answer->save();
 
             $route = route('response.question', ['topic' => $option->question->topic]);
