@@ -39,6 +39,7 @@ Route::middleware(['web', 'auth'])->group(function () {
         });
         Route::name('topic')   ->get('questionnaire/{questionnaire}', [ResponseController::class, 'topic']);
         Route::name('question')->get('topic/{topic}',                 [ResponseController::class, 'question']);
+        Route::name('finish')->get('finish',                          [ResponseController::class, 'finish']);
     });
 
 
