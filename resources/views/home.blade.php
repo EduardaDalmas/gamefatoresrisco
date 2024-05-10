@@ -10,7 +10,7 @@
             <div class="card card-custom-questionnaire">
                 <div class="card-body">
                     <h5 class="card-title">{{ $questionnaire->name }}</h5>
-                    <p class="card-text">Esse questionário é sobre o filme Harry Potter e a Câmara Secreta.</p>
+                    <p class="card-text">{{ $questionnaire->description }}</p>
                     <a href="{{ route('response.topic', ['questionnaire' => $questionnaire->id]) }}" class="btn btn-custom">Iniciar</a>
                     </div>
                 </div>
