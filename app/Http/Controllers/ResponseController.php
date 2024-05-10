@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 use App\Models\Questionnaire;
 use App\Models\Topic;
 
 class ResponseController extends Controller
 {
-    public function topic(Questionnaire $questionnaire)
+    public function topic(Request $request, Questionnaire $questionnaire)
     {
+        $previousUrl = Redirect::back()->getTargetUrl();
         $topics = $questionnaire->getOpenTopics();
         $count = $topics->count();
 
@@ -21,9 +23,15 @@ class ResponseController extends Controller
             return view('response.topics')
                 ->with('topics', $topics);
         }else{
-            return redirect()
-                ->route('response.finish')
-                ->withErrors(['message' => 'Nenhum Tema cadastrado!']);
+            if (strpos($previousUrl, 'topic') !== false) {
+                return redirect()
+                    ->route('response.finish')
+                    ->withErrors(['message' => 'Nenhum Tema cadastrado!']);
+            } else {
+                return redirect()
+                    ->route('home')
+                    ->withErrors(['message' => 'Questionário já respondido!']);
+            }
         }
         
     }

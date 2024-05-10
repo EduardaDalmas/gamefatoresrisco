@@ -17,5 +17,22 @@
             </div>
         @endforeach
     </div>
+    @if ($errors->any())
+        <div class="alert alert-danger" id="errorAlert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+
+        <script>
+            // JavaScript para ocultar a mensagem de erro após alguns segundos
+            setTimeout(function() {
+                document.getElementById('errorAlert').style.display = 'none';
+            }, 5000); // Tempo em milissegundos (neste caso, 5000ms = 5 segundos)
+        </script>
+    @endif
 </div>
 @endsection
+
