@@ -9,6 +9,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\MediaController;
 
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseAjaxController;
@@ -25,10 +26,13 @@ use App\Http\Controllers\ResponseAjaxController;
 */
 
 Route::name('login') ->get('/login',  [HomeController::class, 'login']);
-Route::name('logout')->get('/logout', [HomeController::class, 'logout']);
+// Route::name('logout')->get('/logout', [HomeController::class, 'logout']);
 Auth::routes();
 
-
+Route::get('/upload', [MediaController::class, 'showUploadForm'])->name('media.upload.form');
+Route::post('/upload/video', [MediaController::class, 'videoUpload'])->name('media.video.upload');
+Route::post('/upload/image', [MediaController::class, 'imageUpload'])->name('media.image.upload');
+Route::post('/upload/video_url', [MediaController::class, 'videoUrlUpload'])->name('media.url.upload');
 
 Route::middleware(['web', 'auth'])->group(function () {
     Route::name('home')->get('/', [HomeController::class, 'index']);
@@ -41,6 +45,8 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('question')->get('topic/{topic}',                 [ResponseController::class, 'question']);
         Route::name('finish')->get('finish',                          [ResponseController::class, 'finish']);
     });
+
+    
 
 
 

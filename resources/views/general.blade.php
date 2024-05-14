@@ -29,6 +29,7 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="https://vjs.zencdn.net/7.16.0/video-js.css" rel="stylesheet">
     </head>
 
     <body class="background">

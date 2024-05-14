@@ -17,9 +17,22 @@
                         </div>
 
                         <div class="centralizar"> 
-                            @if ($question->media)
-                                <img src="{{ asset($question->media->media_path) }}" class="card-img-top img-question" alt="...">
-                            @endif
+                            <!-- @if ($question->media)
+                                @if($question->media->type == 'image')
+                                    <img src="{{ asset('images/' . $question->media->media_path) }}" class="card-img-top img-question" alt="...">
+                                @elseif($question->media->type == 'video_file')
+                                    <div class="video-container">
+                                        <video id="my-video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="640" height="360">
+                                            <source src="{{ asset('videos/' . $question->media->media_path) }}" type="video/mp4">
+                                        </video>
+                                    </div>
+                                @elseif($question->media->type == 'video_url')
+                                    <div class="video-container">
+                                        <iframe width="560" height="315" src="{{ $question->media->media_path }}" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                @endif
+                            @endif -->
+                            {!! $mediaHtml !!}
                         </div>
 
                         <!-- validar se possui vídeo e necessário copiar aquele incorporar para apresentar o vídeo -->
@@ -95,5 +108,14 @@
             .run(data);
     });
     
+</script>
+
+<script src="https://vjs.zencdn.net/7.16.0/video.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicialize o player de vídeo
+        var player = videojs('my-video');
+    });
 </script>
 @endsection
