@@ -58,6 +58,8 @@ class ResponseController extends Controller
         if ($question->media) {
             if ($question->media->type == 'image') {
                 $mediaHtml = '<img src="' . asset('images/' . $question->media->media_path) . '" class="card-img-top img-question" alt="...">';
+            } elseif ($question->media->type == 'image_url') {
+                $mediaHtml = '<img src="' . asset($question->media->media_path) . '" class="card-img-top img-question" alt="...">';
             } elseif ($question->media->type == 'video_file') {
                 $mediaHtml = '
                 <div class="video-container">

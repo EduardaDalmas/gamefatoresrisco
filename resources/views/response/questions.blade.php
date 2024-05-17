@@ -110,12 +110,17 @@
     
 </script>
 
-<script src="https://vjs.zencdn.net/7.16.0/video.js"></script>
+@if ($question->media)
+    @if($question->media->type == 'video_file')
+        <script src="https://vjs.zencdn.net/7.16.0/video.js"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Inicialize o player de vídeo
-        var player = videojs('my-video');
-    });
-</script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            // Inicialize o player de vídeo
+            var player = videojs('my-video');
+            });
+        </script>
+    @endif
+@endif
+
 @endsection

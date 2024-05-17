@@ -1,4 +1,4 @@
-@extends('logged')  <!-- Substitua 'layout' pelo nome do seu layout principal -->
+@extends('logged')
 
 @section('page')
     <div class="container">
@@ -24,8 +24,17 @@
         </form>
     </div>
     <div class="container">
-        <h2>Integrar Videodo YouTube</h2>
-        <form action="{{ route('media.url.upload') }}" method="POST">
+        <h2>Upload de Imagens através do link</h2>
+        <form action="{{ route('media.image.url.upload') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <label for="image_link">Link da Imagem:</label>
+            <input type="text" id="image_link" name="image_link">
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+    <div class="container">
+        <h2>Integrar Video do YouTube</h2>
+        <form action="{{ route('media.video.url.upload') }}" method="POST">
             @csrf
             <label for="video_link">Link do Vídeo do YouTube:</label>
             <input type="text" id="video_link" name="video_link">

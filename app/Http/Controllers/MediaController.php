@@ -76,5 +76,21 @@ class MediaController extends Controller
     
         return redirect()->route('media.upload.form')->with('success', 'Vídeo do YouTube adicionado com sucesso!');
     }
+
+    public function imageUrlUpload(Request $request)
+    {
+
+        $request->validate([
+            'image_link' => 'required|url', // Validação básica de URL
+        ]);
+    
+        // Salvar o link do vídeo no banco de dados
+        $media = new Media();
+        $media->media_path = $request->image_link;
+        $media->type = "image_url";
+        $media->save();
+    
+        return redirect()->route('media.upload.form')->with('success', 'Imagem adicionada através do link com sucesso!');
+    }
     
 }
