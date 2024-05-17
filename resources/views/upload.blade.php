@@ -7,7 +7,7 @@
             @csrf
             <div class="form-group">
                 <label for="video">Selecione o vídeo:</label>
-                <input type="file" class="form-control" id="video" name="file" accept="video/mp4,video/mkv">
+                <input type="file" class="form-control" id="video" name="file" accept="video/mp4,video/webm">
             </div>
             <input type="submit" class="btn btn-primary">
         </form>
@@ -18,7 +18,7 @@
             @csrf
             <div class="form-group">
                 <label for="imagem">Selecione a Imagem:</label>
-                <input type="file" class="form-control" id="imagem" name="file" accept="image/jpeg,image/png">
+                <input type="file" class="form-control" id="imagem" name="file" accept="image/jpeg,image/png,image/gif,image/webp">
             </div>
             <input type="submit" class="btn btn-primary">
         </form>
@@ -37,6 +37,9 @@
         <form action="{{ route('media.video.url.upload') }}" method="POST">
             @csrf
             <label for="video_link">Link do Vídeo do YouTube:</label>
+            </br><span>É necessário obter o link através do compartilhamento do vídeo.</span>
+            </br><span>É possível conseguir este link seguindo os seguintes passos:</span>
+            </br><span>Abra o vídeo o qual deseja fazer o upload através do link -> clique em partilhar -> clique em incorporar -> seleciona apenas o que vem dentro das aspas duplas depois de "src=" .</span></br>
             <input type="text" id="video_link" name="video_link">
             <button type="submit">Salvar</button>
         </form>

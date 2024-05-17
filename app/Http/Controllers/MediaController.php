@@ -21,7 +21,7 @@ class MediaController extends Controller
         $file = $request->file("file");
 
         $request->validate([
-            'file' => 'required|mimes:mp4|max:102400', // Max size 100MB
+            'file' => 'required|mimes:mp4,webm|max:102400', // Max size 100MB
         ]);
     
 
@@ -43,7 +43,7 @@ class MediaController extends Controller
         $file = $request->file("file");
 
         $request->validate([
-            'file' => 'required|mimes:jpg|max:102400', // Max size 100MB
+            'file' => 'required|mimes:jpeg,png,gif,webp|max:10240', // Max size 100MB
         ]);
     
 
