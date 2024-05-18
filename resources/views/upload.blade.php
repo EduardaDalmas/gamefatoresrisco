@@ -38,7 +38,7 @@
             @csrf
             <label for="video_link">Link do Vídeo do YouTube:</label>
             </br><span>É necessário obter o link através do compartilhamento do vídeo.</span>
-            </br><span>É possível conseguir este link através os seguintes passos:</span>
+            </br><span>É possível conseguir este link através dos seguintes passos:</span>
             </br><span>Abra o vídeo o qual deseja fazer o upload através do link -> clique em partilhar -> clique em incorporar -> seleciona apenas o que vem dentro das aspas duplas depois de "src="</span></br>
             <span>Exemplo: src="https://www.youtube.com/embed/RK8CeKI69m4?si=gmsdfXbIIsofDzqL"</span></br>
             <input type="text" id="video_link" name="video_link">
