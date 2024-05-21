@@ -7,7 +7,7 @@
                 <div class="card centralizar p-3">
                     <div class="card-body">
                         <div class="mb-3">
-                            <h2>Upload de Vídeo</h2>
+                            <h2 class="text-dark">Upload de Vídeo</h2>
                             <form action="{{ route('media.video.upload') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
@@ -28,7 +28,7 @@
                 <div class="card centralizar p-3">
                     <div class="card-body">
                         <div class="mb-3">
-                            <h2>Upload de Imagens</h2>
+                            <h2 class="text-dark">Upload de Imagens</h2>
                             <form action="{{ route('media.image.upload') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
@@ -49,7 +49,7 @@
                 <div class="card centralizar p-3">
                     <div class="card-body">
                         <div class="mb-3">
-                            <h2>Upload de Imagens através do link</h2>
+                            <h2 class="text-dark">Upload de Imagens através do link</h2>
                             <form action="{{ route('media.image.url.upload') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <p>Exemplo de imagem: https://cc-prod.scene7.com/is/image/CCProdAuthor/FF-SEO-text-to-image-marquee-1x?$pjpeg$&jpegSize=100&wid=600</p>
@@ -69,7 +69,7 @@
                 <div class="card centralizar p-3">
                     <div class="card-body">
                         <div class="mb-3">
-                            <h2>Integrar Video do YouTube</h2>
+                            <h2 class="text-dark">Integrar Video do YouTube</h2>
                             <form action="{{ route('media.video.url.upload') }}" method="POST">
                                 @csrf
 
