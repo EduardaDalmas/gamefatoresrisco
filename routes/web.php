@@ -13,6 +13,12 @@ use App\Http\Controllers\MediaController;
 
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseAjaxController;
+use App\Http\Controllers\DashboardController;
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +53,7 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('question')->get('topic/{topic}',                 [ResponseController::class, 'question']);
         Route::name('finish')->get('finish',                          [ResponseController::class, 'finish']);
     });
+    
 
     
 
