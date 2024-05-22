@@ -2,9 +2,10 @@
 
 @section('page')
 <div class="container">
-    <h1 class="text-center mt-5" style="color: white">Olá, bem-vindo(a) ao Rainbow Minds</h1>
-    <h3 class="text-center mt-5" style="color: white">Escolha um dos questionários abaixo para começar</h3>
-    <div class="row justify-content-center mt-5">
+    <h1 class="text-center mt-5">Olá, bem-vindo(a) ao Rainbow Minds</h1>
+
+    <h3 class="text-center mt-5">Escolha um dos questionários abaixo para começar</h3>
+    <div class="row justify-content-center">
         @foreach ($questionnaires as $questionnaire)
         <div class="col-md-5">
             <div class="card card-custom-questionnaire">
@@ -16,6 +17,23 @@
                 </div>
             </div>
         @endforeach
+    </div>
+    <div class="d-flex align-items-center justify-content-center mt-5">
+        <h3 class="text-center">Meus Questionários</h3>
+        <button type="button" class="btn-custom ml-2"><i class="bi bi-plus-circle"></i></button>
+    </div>
+    <div class="row justify-content-center">
+        {{-- @foreach ($questionnaires as $questionnaire) --}}
+        <div class="col-md-5">
+            <div class="card card-custom-questionnaire">
+                <div class="card-body">
+                    <h5 class="card-title">Tartarugas Ninja verdes</h5>
+                    <p class="card-text">Questionário da aluna Fifi da turma 51 sobre as tartarugas ninja</p>
+                    <a  class="btn btn-custom">Iniciar</a>
+                </div>
+            </div>
+        </div>
+        {{-- @endforeach --}}
     </div>
     @if ($errors->any())
         <div class="alert alert-danger" id="errorAlert">
@@ -31,6 +49,7 @@
             setTimeout(function() {
                 document.getElementById('errorAlert').style.display = 'none';
             }, 5000); // Tempo em milissegundos (neste caso, 5000ms = 5 segundos)
+            
         </script>
     @endif
 </div>

@@ -1,64 +1,86 @@
 @extends('logged')
 @section('page')
+<script src="https://tehsis.github.io/jfortune/jquery.fortune.js"></script>
 <div class="container">
-    <h1 class="text-center mt-5" style="color: white">Gire a roleta e descubra qual o tema da pergunta!</h1>
+    <h1 class="text-center " style="color: white">Gire a roleta e descubra qual o tema da pergunta!</h1>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      .wheel-container {
+        position: relative;
+        width: 500px;
+        height: 500px;
+        margin: 20px auto;
+      }
+      .pointer {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 30px 15px 0 15px;
+        border-color: rgb(0, 0, 0) transparent transparent transparent;
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    </style>
 
-    <div class="roulette-container">
-        <img class="img-arrow" src="{{ asset('images/arrow.png') }}" alt="Arrow">
-        <div class="roulette">
-            @foreach ($topics as $topic)
-                <div class="option"><img class="img-opt" src="{{ asset('images/op-'.$topic->id.'.png') }}" data-url="{{ route("response.question", ["topic" => $topic->id]) }}" alt="opção 2"></div>
-            @endforeach           
-        </div>
+    <div class="container mt-5">
+      <div class="wheel-container">
+          <canvas id="canvas" width="500" height="500"></canvas>
+          <div class="pointer"></div>
+      </div>
+      <div class="text-center">
+          <button class="btn btn-primary mt-3" id="spinButton">Girar</button>
+      </div>
     </div>
 
     <audio id="roletaAudio" preload="auto">
-        <source src="{{ asset('music/roleta.mp3') }}" type="audio/mpeg">
+      <source src="{{ asset('music/roleta.mp3') }}" type="audio/mpeg">
     </audio>
 
-    <div class="centralizar">
-        <button id="spin-btn" class="btn btn-custom">Girar roleta</button>
-    </div>
-</div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script src="{{ asset('js/Winwheel.js') }}"></script>
+    <script>
+      $(document).ready(function() {
+        const callback = function(selected) {
+            console.log(selected);
+            pararSomRoleta();
+            const url = "{{ route('response.question', ['topic' => 'topicId']) }}".replace('topicId', selected.id);
+            window.location.href = url;
+        };
 
-<script>   
-    document.getElementById('spin-btn').addEventListener('click', function() {
-        tocarSomRoleta();
 
-        var degrees = Math.floor(Math.random() * 3600) + 360;
-        var roulette = document.querySelector('.roulette');
-        roulette.style.transition = "transform 5s ease-out"; 
-        roulette.style.transform = 'rotate(' + degrees + 'deg)';
 
-        roulette.addEventListener('transitionend', () => {
-            var style = window.getComputedStyle(roulette);
-            var transform = style.getPropertyValue('transform');
-            var matrix = new WebKitCSSMatrix(transform);
-            var rotation = Math.round(Math.atan2(matrix.b, matrix.a) * (180/Math.PI));
-
-            var options = document.querySelectorAll('.option');
-            var angleStep = 360 / options.length;
-            var selectedOptionIndex = Math.floor((rotation % 360) / angleStep);
-            var selectedOption = options[selectedOptionIndex];
-            var selectedURL = selectedOption.querySelector('.img-opt').dataset.url;
-            console.log("Opção selecionada:", selectedURL);
-            callbackRoleta(selectedURL);
+        const cores = ['FF69B4', '87CEEB', '7FFFD4', 'FF7F50', '90EE90'];
+        const wheel = new Winwheel({
+            'canvasId': 'canvas',
+            'numSegments': {{ count($topics) }},
+            'segments': [
+              @foreach($topics as $topic)
+                {'fillStyle': '#' + cores[Math.floor(Math.random() * cores.length)], 'text': '{{ $topic->name }}', 'id': '{{ $topic->id }}'},
+              @endforeach
+            ],
+            'animation': {
+                'type': 'spinToStop',
+                'duration': 5,
+                'spins': 8,
+                'callbackFinished': callback
+            }
         });
 
-        var duracaoGiro = 5000 + degrees / 10; 
-        setTimeout(function() {
-            pararSomRoleta();
-        }, duracaoGiro);
-    });
-
-    function callbackRoleta(url) {
-        window.location.href = url;
-    }
-
-    const roletaAudio = document.getElementById("roletaAudio");
-    const roletaSelecao = document.getElementById("selecao");
-
-    function tocarSomRoleta() {
+        $('#spinButton').click(function() {
+            tocarSomRoleta();  // Call this function here to ensure it's triggered by user interaction
+            wheel.stopAnimation(false);
+            wheel.rotationAngle = 0;
+            wheel.draw();
+            wheel.startAnimation();
+        });
+      });
+      
+      function tocarSomRoleta() {
+        var roletaAudio = document.getElementById('roletaAudio');
         if (roletaAudio.paused) {
             roletaAudio.currentTime = 0;
             roletaAudio.play();
@@ -66,10 +88,10 @@
     }
 
     function pararSomRoleta() {
+        var roletaAudio = document.getElementById('roletaAudio');
         roletaAudio.pause();
     }
-</script>
-    
+
+    </script>
 </div>
 @endsection
-
