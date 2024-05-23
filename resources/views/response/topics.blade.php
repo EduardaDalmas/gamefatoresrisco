@@ -2,7 +2,7 @@
 @section('page')
 <script src="https://tehsis.github.io/jfortune/jquery.fortune.js"></script>
 <div class="container">
-    <h1 class="text-center " style="color: white">Gire a roleta e descubra qual o tema da pergunta!</h1>
+    <h1 class="text-center">Gire a roleta e descubra qual o tema da pergunta!</h1>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -16,7 +16,8 @@
         width: 0;
         height: 0;
         border-style: solid;
-        border-width: 30px 15px 0 15px;
+        border-radius: 30%;
+        border-width: 40px 25px 0 25px;
         border-color: rgb(0, 0, 0) transparent transparent transparent;
         position: absolute;
         top: -30px;
@@ -31,7 +32,7 @@
           <div class="pointer"></div>
       </div>
       <div class="text-center">
-          <button class="btn btn-primary mt-3" id="spinButton">Girar</button>
+          <button class="btn-custom mt-2" id="spinButton">Girar roleta</button>
       </div>
     </div>
 
@@ -51,15 +52,22 @@
             window.location.href = url;
         };
 
+        const cores = ['E3D2F4', 'AFDEFA', 'BDF6E3', 'FBF5C5', 'FFD1D0', ];
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
 
+        shuffle(cores);
 
-        const cores = ['FF69B4', '87CEEB', '7FFFD4', 'FF7F50', '90EE90'];
         const wheel = new Winwheel({
             'canvasId': 'canvas',
             'numSegments': {{ count($topics) }},
             'segments': [
-              @foreach($topics as $topic)
-                {'fillStyle': '#' + cores[Math.floor(Math.random() * cores.length)], 'text': '{{ $topic->name }}', 'id': '{{ $topic->id }}'},
+              @foreach($topics as $index => $topic)
+                {'fillStyle': '#' + cores[{{ $index }}], 'text': '{{ $topic->name }}', 'id': '{{ $topic->id }}'},
               @endforeach
             ],
             'animation': {
