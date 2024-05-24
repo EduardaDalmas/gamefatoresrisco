@@ -52,22 +52,21 @@
             window.location.href = url;
         };
 
-        const cores = ['E3D2F4', 'AFDEFA', 'BDF6E3', 'FBF5C5', 'FFD1D0', ];
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+        const cores = ['E3D2F4', 'AFDEFA', 'BDF6E3', 'FBF5C5', 'FFD1D0'];
+        let index = 0;
 
-        shuffle(cores);
+        function getNextColor() {
+            const color = cores[index];
+            index = (index + 1) % cores.length;
+            return color;
+        }
 
         const wheel = new Winwheel({
             'canvasId': 'canvas',
             'numSegments': {{ count($topics) }},
             'segments': [
-              @foreach($topics as $index => $topic)
-                {'fillStyle': '#' + cores[{{ $index }}], 'text': '{{ $topic->name }}', 'id': '{{ $topic->id }}'},
+              @foreach($topics as $topic)
+                {'fillStyle': '#' + getNextColor(), 'text': '{{ $topic->name }}', 'id': '{{ $topic->id }}'},
               @endforeach
             ],
             'animation': {
@@ -77,6 +76,7 @@
                 'callbackFinished': callback
             }
         });
+
 
         $('#spinButton').click(function() {
             tocarSomRoleta();  // Call this function here to ensure it's triggered by user interaction
