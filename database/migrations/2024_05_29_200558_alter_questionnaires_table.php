@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('questionnaires', function (Blueprint $table) {
-            $table->text('description')->nullable(true)->after('name');
             $table->boolean('random')->default(false)->after('description');
             $table->boolean('roulette')->default(true)->after('random');
         });
