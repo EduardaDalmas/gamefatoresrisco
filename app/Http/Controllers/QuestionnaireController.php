@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Models\Questionnaire;
 
@@ -45,7 +46,12 @@ class QuestionnaireController extends Controller
         $questionnaire->random      = $request->input('presentation') == 'random';
         $questionnaire->save();
 
-        return redirect()->route('questionnaire.view', $questionnaire);
+        $topic = new Topic();
+        $topic->questionnaire()->associate($questionnaire);
+        $topic->name = $request->input('topic');
+        $topic->save();
+
+        return redirect()->route('questionnaire.edit', $questionnaire);
     }
 
     // Método para deletar um questionário

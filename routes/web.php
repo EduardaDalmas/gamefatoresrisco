@@ -63,6 +63,15 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('delete')->get('{questionnaire}/delete',[QuestionnaireController::class, 'delete']);
     });
 
+    Route::name('topic.')->prefix('topic')->group(callback: function () {
+        Route::name('create')->get('create',         [HomeController::class, 'emDesenv']);
+        Route::name('save')  ->post('save',          [HomeController::class, 'emDesenv']);
+        Route::name('view')  ->get('{topic}',        [HomeController::class, 'emDesenv']);
+        Route::name('edit')  ->get('{topic}/edit',   [HomeController::class, 'emDesenv']);
+        Route::name('update')->put('{topic}/update', [HomeController::class, 'emDesenv']);
+        Route::name('delete')->get('{topic}/delete', [HomeController::class, 'emDesenv']);
+    });
+
 
 });
 

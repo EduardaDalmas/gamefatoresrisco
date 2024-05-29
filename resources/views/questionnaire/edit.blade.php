@@ -38,8 +38,17 @@
                                     </label>
                                 </div>
                             </div>
+                            <h5>Temas/Sessão</h5>
+                            <div class="form-group col-12">
+                                <label for="topic" id="labeTopic">Nome do Tema</label>
+                                <input type="text" class="form-control" id="topic" name="topic" value="{{ old('topic') }}">
+                            </div>
                             @foreach($questionnaire->topics as $topic)
-
+                                <div class="row">
+                                    <div class="col-8">{{ $topic->name }}</div>
+                                    <div class="col-2"><a href="{{ route('topic.edit', $topic) }}" class="btn btn-primary">editar</a></div>
+                                    <div class="col-2"><a href="{{ route('topic.delete', $topic) }}" class="btn btn-danger">excluir</a></div>
+                                </div>
                             @endforeach
                             <div class="col-2">
                                 <button type="submit" class="btn btn-primary">Salvar</button>
