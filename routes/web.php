@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
-
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\QuestionController;
@@ -53,9 +53,9 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('question')->get('topic/{topic}',                 [ResponseController::class, 'question']);
         Route::name('finish')->get('finish',                          [ResponseController::class, 'finish']);
     });
-    
 
-    
+    Route::get(('/answer'), [AnswerController::class, 'index'])->name('answer.index');
+    Route::get(('/answer/{id}'), [AnswerController::class, 'show'])->name('answer.show');
 
 
 
