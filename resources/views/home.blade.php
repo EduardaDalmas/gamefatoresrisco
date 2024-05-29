@@ -20,20 +20,22 @@
     </div>
     <div class="d-flex align-items-center justify-content-center mt-5">
         <h3 class="text-center">Meus Questionários</h3>
-        <button type="button" class="btn-custom ml-2"><i class="bi bi-plus-circle"></i></button>
+        <a href="{{ route('questionnaire.create') }}" class="btn btn-custom ml-2"><i class="bi bi-plus-circle"></i></a>
     </div>
     <div class="row justify-content-center">
-        {{-- @foreach ($questionnaires as $questionnaire) --}}
-        <div class="col-md-5">
-            <div class="card card-custom-questionnaire">
-                <div class="card-body">
-                    <h5 class="card-title">Tartarugas Ninja verdes</h5>
-                    <p class="card-text">Questionário da aluna Fifi da turma 51 sobre as tartarugas ninja</p>
-                    <a  class="btn btn-custom">Iniciar</a>
+        @foreach ($myQuestionnaires as $questionnaire)
+            <div class="col-md-5">
+                <div class="card card-custom-questionnaire">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $questionnaire->name }}</h5>
+                        <p class="card-text">{{ $questionnaire->description }}</p>
+                        <a href="{{ route('questionnaire.delete', $questionnaire) }}" class="btn btn-custom">Excluir</a>
+                        <a href="{{ route('questionnaire.view', $questionnaire) }}" class="btn btn-custom">Ver Detalhes</a>
+                        <a href="{{ route('questionnaire.edit', $questionnaire) }}" class="btn btn-custom">Editar</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        {{-- @endforeach --}}
+        @endforeach
     </div>
     @if ($errors->any())
         <div class="alert alert-danger" id="errorAlert">
