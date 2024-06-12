@@ -2,26 +2,57 @@
 
 @section('page')
 <div class="container bg-white rounded">
-    <div class="row justify-content-center p-5">
+    <div class="row justify-content-center p-3">
         <table class="table">
             <thead>
                 <tr>
-                <th scope="col">Questionário</th>
-                <th scope="col">Ação</th>
+                    <th scope="col">Grupo</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($team_people as $team)
-                    @foreach ($team as $person)
-                        <tr>
-                            <td>{{$person->name}}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">
-                                    <a href="" target="_self" rel="noopener noreferrer" class="text-white">Ver Respostas</a>
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
+                @foreach ($data['questionnaire_team_people'] as $questionnaire_team)
+                    <tr>
+                        <td>{{ $questionnaire_team->name }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="row justify-content-center p-3">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Pessoa</th>
+                                            <th scope="col">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($questionnaire_team->people as $person)
+                                            @foreach ($data['person_answers'] as $person_answer)
+                                                @if (($person->id == $person_answer->id) and (count($person_answer->answers) > 0))
+                                                    <tr>
+                                                        <td>{{ $person->name }}</td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-light">
+                                                                <a href="{{ route('answer.show', [$person->id, $questionnaire_team['questionnaires'][0]->id ]) }}">Ver Respostas</a>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                                
+                                                @if (($person->id == $person_answer->id) and (count($person_answer->answers) == 0))
+                                                    <tr>
+                                                        <td>{{ $person->name }}</td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-light" disabled>Ver Respostas</button>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

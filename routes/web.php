@@ -55,7 +55,7 @@ Route::middleware(['web', 'auth'])->group(function () {
     });
 
     Route::get(('/answers/{questionnaire}'), [AnswerController::class, 'index'])->name('answer.index');
-        Route::get(('/answers/questionnaire/{person}/{questionnaire}'), [AnswerController::class, 'show'])->name('answer.show');
+    Route::get(('/answers/questionnaire/{person}/{questionnaire}'), [AnswerController::class, 'show'])->name('answer.show');
 
 
 

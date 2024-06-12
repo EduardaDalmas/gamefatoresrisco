@@ -21,15 +21,27 @@ class AnswerController extends Controller
     {
         $questionaire_team = $questionnaire->teams()->get();
 
-        $team_people = array();
+        $questionnaire_team_people = [];
+        $person_answers = [];
 
-        foreach($questionaire_team as $row){
-            $team = Team::find($row->pivot->team_id);
+        $result = [];
 
-            array_push($team_people, $team->people()->get());
+        foreach ($questionaire_team as $team) {
+            $team_people = $team::with('people', 'questionnaires')->get();
+
+            $questionnaire_team_people = $team_people;
         }
-        
-        return view('answers.index', ["team_people" => $team_people]);
+
+        foreach ($questionnaire_team_people as $row) {
+            foreach ($row->people as $person) {
+                $person_answers = $person::with('answers')->get();
+            }
+        }
+
+        $result['questionnaire_team_people'] = $questionnaire_team_people;
+        $result['person_answers'] = $person_answers;
+        //return $result;
+        return view('answers.index', ["data" => $result]);
     }
 
     /**
