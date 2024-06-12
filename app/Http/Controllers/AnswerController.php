@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Option;
+use App\Models\Person;
+use App\Models\Question;
 use App\Models\Questionnaire;
+use App\Models\Team;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,18 +17,19 @@ class AnswerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Questionnaire $questionnaire)
     {
-        $answerByQuestionnaireAndPerson = DB::table('questionnaires')
-            ->join('topics', 'questionnaires.id', '=', 'topics.questionnaire_id')
-            ->join('questions', 'topics.id', '=', 'questions.topic_id')
-            ->join('options', 'questions.id', '=', 'options.question_id')
-            ->join('answers', 'options.id', '=', 'answers.option_id')
-            ->join('people', 'answers.person_id', '=', 'people.id')
-            ->select('questionnaires.id as questionnaires_id', 'questionnaires.name as questionnaires_name', 'people.name as people_name')
-            ->get();
+        $questionaire_team = $questionnaire->teams()->get();
 
-        return view('answers.index')->with('answerByQuestionnaireAndPerson', $answerByQuestionnaireAndPerson);
+        $team_people = array();
+
+        foreach($questionaire_team as $row){
+            $team = Team::find($row->pivot->team_id);
+
+            array_push($team_people, $team->people()->get());
+        }
+        
+        return view('answers.index', ["team_people" => $team_people]);
     }
 
     /**
@@ -45,13 +51,55 @@ class AnswerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $idQuestionaire)
+    public function show(Person $person, Questionnaire $questionnaire)
     {
-        $result = DB::table('questionnaires')
-            ->where('id', '=', $idQuestionaire)
-            ->get();
+        $topics = $questionnaire->topics()->get();
+        $answers = $person->answers()->get();
+
+        $questionnaire_estructure = [];
+        $answers_estructure = array();
+
+        $result = [];
+
+        foreach ($topics as $topic) {
+            $topic_questions = $topic->with('questions')->get();
+
+
+            foreach ($topic_questions as $topic_question) {
+                foreach ($topic_question["questions"] as $question) {
+                    $options = Option::where('question_id', '=', $question->id)->get();
+
+                    $question["options"] = $options;
+
+                    $questionnaire_estructure = $topic_questions;
+                }
+            }
+        }
+
+        foreach ($answers as $answer) {
+            $option = Option::where('id', '=', $answer->option_id)->get();
+
+            foreach ($option as $op) {
+                $question = Question::where('id', '=', $op->question_id)->get();
+                
+                foreach ($question as $qt) {
+                    $answer['question'] = $qt;
+
+                    $topic = Topic::where('id', '=', $qt->topic_id)->get();
+
+                    foreach ($topic as $tp) {
+                        $answer['topic'] = $tp;   
+                    }
+                }
+            }
+            
+            array_push($answers_estructure, $answer);
+        }
         
-        return $result;
+        $result["questionnaire_estructure"] = $questionnaire_estructure;
+        $result["answers_estructure"] = $answers_estructure;
+
+        return view('answers.detail', ["data" => $result]);
     }
 
     /**

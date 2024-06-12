@@ -7,21 +7,21 @@
             <thead>
                 <tr>
                 <th scope="col">Questionário</th>
-                <th scope="col">Pessoal</th>
                 <th scope="col">Ação</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($answerByQuestionnaireAndPerson as $row)
-                <tr>
-                    <td>{{$row->questionnaires_name}}</td>
-                    <td>{{$row->people_name}}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">
-                            <a href="{{ route('logout', []) }}" target="_blank" rel="noopener noreferrer">Detalhes</a>
-                        </button>
-                    </td>
-                </tr>
+                @foreach ($team_people as $team)
+                    @foreach ($team as $person)
+                        <tr>
+                            <td>{{$person->name}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">
+                                    <a href="" target="_self" rel="noopener noreferrer" class="text-white">Ver Respostas</a>
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
                 @endforeach
             </tbody>
         </table>

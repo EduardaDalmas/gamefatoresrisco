@@ -54,8 +54,8 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('finish')->get('finish',                          [ResponseController::class, 'finish']);
     });
 
-    Route::get(('/answer'), [AnswerController::class, 'index'])->name('answer.index');
-    Route::get(('/answer/{id}'), [AnswerController::class, 'show'])->name('answer.show');
+    Route::get(('/answers/{questionnaire}'), [AnswerController::class, 'index'])->name('answer.index');
+        Route::get(('/answers/questionnaire/{person}/{questionnaire}'), [AnswerController::class, 'show'])->name('answer.show');
 
 
 
