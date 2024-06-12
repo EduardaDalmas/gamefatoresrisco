@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany, HasManyThrough};
 
 class Question extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['topic_id', 'media_id'];
 
     protected static function booted()

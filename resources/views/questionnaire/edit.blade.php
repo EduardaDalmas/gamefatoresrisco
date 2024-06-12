@@ -6,6 +6,8 @@
             <div class="col-md-8 mt-5 mb-5">
                 <div class="card centralizar p-5">
                     <div class="card-body">
+                        <a href="{{ route('home') }}">Voltar</a>
+
                         <form action="{{ route("questionnaire.update", ['questionnaire' => $questionnaire->id]) }}" method="POST">
                             @method('PUT')
                             @csrf

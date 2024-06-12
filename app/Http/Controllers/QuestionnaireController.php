@@ -46,10 +46,12 @@ class QuestionnaireController extends Controller
         $questionnaire->random      = $request->input('presentation') == 'random';
         $questionnaire->save();
 
-        $topic = new Topic();
-        $topic->questionnaire()->associate($questionnaire);
-        $topic->name = $request->input('topic');
-        $topic->save();
+        if($request->input('topic') !== null){
+            $topic = new Topic();
+            $topic->questionnaire()->associate($questionnaire);
+            $topic->name = $request->input('topic');
+            $topic->save();
+        }
 
         return redirect()->route('questionnaire.edit', $questionnaire);
     }

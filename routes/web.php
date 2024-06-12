@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OptionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 
@@ -7,6 +8,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionnaireController;
+use App\Http\Controllers\TopicController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\MediaController;
@@ -60,16 +62,30 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('view')  ->get('{questionnaire}',        [QuestionnaireController::class, 'view']);
         Route::name('edit')  ->get('{questionnaire}/edit',   [QuestionnaireController::class, 'edit']);
         Route::name('update')->put('{questionnaire}/update', [QuestionnaireController::class, 'update']);
-        Route::name('delete')->get('{questionnaire}/delete',[QuestionnaireController::class, 'delete']);
+        Route::name('delete')->get('{questionnaire}/delete', [QuestionnaireController::class, 'delete']);
     });
 
     Route::name('topic.')->prefix('topic')->group(callback: function () {
-        Route::name('create')->get('create',         [HomeController::class, 'emDesenv']);
-        Route::name('save')  ->post('save',          [HomeController::class, 'emDesenv']);
+//        Route::name('create')->get('create',         [HomeController::class, 'emDesenv']);
+//        Route::name('save')  ->post('save',          [HomeController::class, 'emDesenv']);
         Route::name('view')  ->get('{topic}',        [HomeController::class, 'emDesenv']);
-        Route::name('edit')  ->get('{topic}/edit',   [HomeController::class, 'emDesenv']);
-        Route::name('update')->put('{topic}/update', [HomeController::class, 'emDesenv']);
-        Route::name('delete')->get('{topic}/delete', [HomeController::class, 'emDesenv']);
+        Route::name('edit')  ->get('{topic}/edit',   [TopicController::class, 'edit']);
+        Route::name('update')->put('{topic}/update', [TopicController::class, 'update']);
+        Route::name('delete')->get('{topic}/delete', [TopicController::class, 'delete']);
+    });
+
+    Route::name('question.')->prefix('question')->group(callback: function () {
+        Route::name('save')   ->post('save/topic/{topic}', [QuestionController::class, 'save']);
+        Route::name('view')   ->get('{question}',          [QuestionController::class, 'view']);
+        Route::name('update') ->put('{question}/update',   [QuestionController::class, 'update']);
+        Route::name('restore')->get('{question}/restore',  [QuestionController::class, 'restore']);
+        Route::name('delete') ->get('{question}/delete',   [QuestionController::class, 'delete']);
+    });
+
+    Route::name('option.')->prefix('option')->group(callback: function () {
+        Route::name('save')   ->post('save/question/{question}', [OptionController::class, 'save']);
+        Route::name('restore')->get('{option}/restore',          [OptionController::class, 'restore']);
+        Route::name('delete') ->get('{option}/delete',           [OptionController::class, 'delete']);
     });
 
 

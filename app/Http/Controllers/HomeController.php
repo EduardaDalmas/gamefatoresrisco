@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function index() {
         return view('home')
             ->with('questionnaires', Questionnaire::getOpenedsCurrentUser())
-            ->with('myQuestionnaires', Questionnaire::all());
+            ->with('myQuestionnaires', Questionnaire::getByOwner());
     }
 
     public function login() {
