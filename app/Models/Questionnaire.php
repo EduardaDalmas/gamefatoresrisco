@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 
 use App\Models\Pivot\QuestionnaireTeam;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class Questionnaire extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['name'];
 
     protected static function boot()
@@ -47,7 +50,6 @@ class Questionnaire extends Model
     }
 
     public static function getOpenedsCurrentUser() : Collection {
-        //Aqui precisa filtrar pelo team
         return self::all();
     }
 
