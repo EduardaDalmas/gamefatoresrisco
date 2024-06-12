@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
-
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\QuestionController;
@@ -53,6 +53,25 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('question')->get('topic/{topic}',                 [ResponseController::class, 'question']);
         Route::name('finish')->get('finish',                          [ResponseController::class, 'finish']);
     });
+
+    Route::get(('/answers/{questionnaire}'), [AnswerController::class, 'index'])->name('answer.index');
+    Route::get(('/answers/questionnaire/{person}/{questionnaire}'), [AnswerController::class, 'show'])->name('answer.show');
+
+
+
+    // Route::get('/game', [Controllers\GameController::class, 'index'])->name('game');
+
+    // Route::get('/question/{question}', [App\Http\Controllers\QuestionController::class, 'index'])->name('question');
+
+
+    // Route::get('/questionnaire', [App\Http\Controllers\QuestionnaireController::class, 'index'])->name('questionnaire');
+
+
+    // Route::name('questionnaire.')->prefix('questionnaire')->group(function () {
+    //     Route::name('index')->get('/', [QuestionnaireController::class, 'index']);
+    //     Route::name('save') ->get('/', [QuestionnaireController::class, 'save']);
+
+    // });
 
     Route::name('questionnaire.')->prefix('questionnaire')->group(callback: function () {
         Route::name('create')->get('create',                 [QuestionnaireController::class, 'create']);
