@@ -25,3 +25,11 @@ Homestead.json
 
 .DS_Store
 
+/.idea/codeception.xml
+/.idea/gamefatoresrisco.iml
+/.idea/modules.xml
+/.idea/php.xml
+/.idea/phpspec.xml
+/.idea/phpunit.xml
+/.idea/vcs.xml
+/.idea/.gitignore

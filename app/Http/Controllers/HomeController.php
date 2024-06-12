@@ -10,7 +10,8 @@ class HomeController extends Controller
 {
     public function index() {
         return view('home')
-            ->with('questionnaires', Questionnaire::getOpenedsCurrentUser());
+            ->with('questionnaires', Questionnaire::getOpenedsCurrentUser())
+            ->with('myQuestionnaires', Questionnaire::all());
     }
 
     public function login() {
@@ -21,5 +22,9 @@ class HomeController extends Controller
         Auth::logout();
 
         return redirect()->route('login');
+    }
+
+    public function emDesenv(){
+        die('em desenvolvimento');
     }
 }

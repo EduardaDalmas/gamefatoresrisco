@@ -73,21 +73,25 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     // });
 
-    // Route::name('topic.')->prefix('topic')->group(function () {
-    //     Route::name('index')->get('/', function () {
-    //         return redirect()->route('questionnaire.index');
-    //     });
+    Route::name('questionnaire.')->prefix('questionnaire')->group(callback: function () {
+        Route::name('create')->get('create',                 [QuestionnaireController::class, 'create']);
+        Route::name('save')  ->post('save',                  [QuestionnaireController::class, 'save']);
+        Route::name('view')  ->get('{questionnaire}',        [QuestionnaireController::class, 'view']);
+        Route::name('edit')  ->get('{questionnaire}/edit',   [QuestionnaireController::class, 'edit']);
+        Route::name('update')->put('{questionnaire}/update', [QuestionnaireController::class, 'update']);
+        Route::name('delete')->get('{questionnaire}/delete',[QuestionnaireController::class, 'delete']);
+    });
 
-    //     Route::name('index')->get('/{questionnaire}/questionnaire', [TopicController::class, 'index']);
-    // });
+    Route::name('topic.')->prefix('topic')->group(callback: function () {
+        Route::name('create')->get('create',         [HomeController::class, 'emDesenv']);
+        Route::name('save')  ->post('save',          [HomeController::class, 'emDesenv']);
+        Route::name('view')  ->get('{topic}',        [HomeController::class, 'emDesenv']);
+        Route::name('edit')  ->get('{topic}/edit',   [HomeController::class, 'emDesenv']);
+        Route::name('update')->put('{topic}/update', [HomeController::class, 'emDesenv']);
+        Route::name('delete')->get('{topic}/delete', [HomeController::class, 'emDesenv']);
+    });
 
-    // Route::name('question.')->prefix('question')->group(function () {
-    //     Route::name('index')->get('/', function () {
-    //         return redirect()->route('questionnaire.index');
-    //     });
-    //     Route::name('view')->get('topic/{topic}',    [QuestionController::class, 'view']);
-    //     Route::name('save')->post('{question}/save', [QuestionController::class, 'save']);
-    // });
+
 });
 
 
