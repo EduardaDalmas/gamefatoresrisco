@@ -32,7 +32,7 @@
                                                         <td>{{ $person->name }}</td>
                                                         <td>
                                                             <button type="button" class="btn btn-light">
-                                                                <a href="{{ route('answer.show', [$person->id, $questionnaire_team['questionnaires'][0]->id ]) }}">Ver Respostas</a>
+                                                                <a href="{{ route('answer.show', [$person->id, $questionnaire_team['questionnaires'][0]->id ]) }}">Questionário {{ $questionnaire_team['questionnaires'][0]->id }}</a>
                                                             </button>
                                                         </td>
                                                     </tr>

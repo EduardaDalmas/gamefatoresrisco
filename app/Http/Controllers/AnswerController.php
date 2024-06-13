@@ -74,12 +74,12 @@ class AnswerController extends Controller
         $result = [];
 
         foreach ($topics as $topic) {
-            $topic_questions = $topic->with('questions')->get();
-
+            $topic_questions = $topic->with('questions')->where('questionnaire_id', '=', $topic->questionnaire_id)->get();
 
             foreach ($topic_questions as $topic_question) {
                 foreach ($topic_question["questions"] as $question) {
                     $options = Option::where('question_id', '=', $question->id)->get();
+
 
                     $question["options"] = $options;
 
