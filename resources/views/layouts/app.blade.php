@@ -32,6 +32,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.2/font/bootstrap-icons.min.css">
 
+
         
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">

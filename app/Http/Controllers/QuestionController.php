@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Models\Topic;
+use App\Models\Media;
 
 class QuestionController extends Controller
 {
@@ -13,6 +14,14 @@ class QuestionController extends Controller
         $question = new Question();
         $question->topic()->associate($topic);
         $question->description = $request->pergunta;
+
+        if ($request->filled('media_id')) {
+            $media = Media::find($request->media_id);
+            if ($media) {
+                $question->media()->associate($media);
+            }
+        }
+
         $question->save();
         return redirect()->route('topic.edit', ['topic' => $topic]);
     }
