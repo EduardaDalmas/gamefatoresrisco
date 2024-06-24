@@ -113,39 +113,64 @@
                             </div>
                         </form>
                         <br><hr><br>
+
                         @foreach($questions as $question)
-                            <div class="col-12">
-                                <div class="row col-12">
-                                    <h4>{{ $question->description }}</h4>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 form-group">
-                                        <label for="ratio">Peso</label>
-                                        <input class="form-control" type="number" id="ratio" value="{{ $question->ratio }}" {{ $question->trashed() ? 'disabled' : '' }}>
+                                <div class="col-12">
+                                    <div class="row col-12">
+                                        <h4>{{ $question->description }}</h4>
                                     </div>
-                                    <div class="col-4 form-group">
-                                        <input class="form-check-input" type="checkbox" name="texto_livre" id="texto_livre" {{ $question->text ? 'checked' : '' }} disabled>
-                                        <label class="form-check-label" for="texto_livre">
-                                            Resposta em Texto Livre?
-                                        </label>
+
+                                    <div class="row">
+                                        <div class="col-4 form-group">
+                                            <label for="ratio">Peso</label>
+                                            <input class="form-control" type="number" id="ratio" value="{{ $question->ratio }}" {{ $question->trashed() ? 'disabled' : '' }}>
+                                        </div>
+                                        
+                                        <div class="col-4 form-group">
+                                            <input class="form-check-input" type="checkbox" name="texto_livre" id="texto_livre" {{ $question->text ? 'checked' : '' }} disabled>
+                                            <label class="form-check-label" for="texto_livre">
+                                                Resposta em Texto Livre?
+                                            </label>
+                                        </div>
+
+                                        @if($question->trashed())
+                                            <div class="col-2 form-group">
+                                                <label>-</label>
+                                                <a href="{{ route('question.restore', ['question' => $question]) }}" class="btn btn-primary">Reativar</a>
+                                            </div>
+                                        @else
+                                            <div class="col-2 form-group">
+                                                <label>-</label>
+                                                <a href="{{ route('question.view', ['question' => $question]) }}" class="btn btn-primary">Opções</a>
+                                            </div>
+                                            <div class="col-2 form-group">
+                                                <label>-</label>
+                                                <a href="{{ route('question.delete', ['question' => $question]) }}" class="btn btn-danger">Excluir</a>
+                                            </div>
+                                        @endif
                                     </div>
-                                    @if($question->trashed())
-                                        <div class="col-2 form-group">
-                                            <label>-</label>
-                                            <a href="{{ route('question.restore', ['question' => $question]) }}" class="btn btn-primary">Reativar</a>
-                                        </div>
-                                    @else
-                                        <div class="col-2 form-group">
-                                            <label>-</label>
-                                            <a href="{{ route('question.view', ['question' => $question]) }}" class="btn btn-primary">Opções</a>
-                                        </div>
-                                        <div class="col-2 form-group">
-                                            <label>-</label>
-                                            <a href="{{ route('question.delete', ['question' => $question]) }}" class="btn btn-danger">Excluir</a>
-                                        </div>
-                                    @endif
                                 </div>
-                            </div>
+
+                                @if($question->media)
+                                    <div class="row col-12 mb-3">
+                                        @if ($question->media->type == 'image')
+                                            <img src="{{ asset('images/' . $question->media->media_path) }}" class="img-thumbnail" alt="Miniatura" style="max-width: 100px; max-height: 100px;">
+                                        @elseif ($question->media->type == 'image_url')
+                                            <img src="{{ $question->media->media_path }}" class="img-thumbnail" alt="Miniatura" style="max-width: 100px; max-height: 100px;">
+                                        @elseif ($question->media->type == 'video_file')
+                                            <video width="100" height="100" controls class="video-thumbnail">
+                                                <source src="{{ asset('videos/' . $question->media->media_path) }}" type="video/{{ pathinfo($question->media->media_path, PATHINFO_EXTENSION) }}">
+                                            </video>
+                                        @elseif ($question->media->type == 'video_url')
+                                            <iframe width="100" height="100" src="{{ $question->media->media_path }}" frameborder="0" allowfullscreen></iframe>
+                                        @endif
+                                    </div>
+                                @else
+                                    <div class="row col-12 mb-3">
+                                        <p class="text-muted">Esta pergunta não possuí mídia cadastrada.</p>  
+                                    </div>
+                                @endif
+                                <br><hr><br>
                         @endforeach
                     </div>
                 </div>
@@ -173,7 +198,7 @@
         const imageUrlInput = document.getElementById('image_link');
         const successMessage = document.getElementById('successMessage');
         const mediaSelect = document.getElementById('mediaSelect');
-        const mediaIdInput = document.getElementById('media_id'); // Certifique-se de que esta linha está definida corretamente
+        const mediaIdInput = document.getElementById('media_id');
 
         mediaCheckbox.addEventListener('change', function() {
             if (this.checked) {
@@ -248,7 +273,7 @@
                 .then(data => {
                     if (data.success) {
                         videoName.value = data.fileName;
-                        mediaIdInput.value = data.mediaId; // Use a variável definida corretamente
+                        mediaIdInput.value = data.mediaId;
                         displaySuccessMessage(mediaType, data.fileName);
                         disableUploadButton(mediaType);
                     } else {
@@ -327,20 +352,11 @@
             });
         }
 
-        // window.addEventListener('load', function() {
-        //     const mediaSelect = document.getElementById('mediaSelect');
-        //     const selectedMediaId = document.getElementById('selectedMediaId');
-
-        //     mediaSelect.addEventListener('change', function() {
-        //         selectedMediaId.value = this.value;
-        //     });
-        // });
-
         mediaSelect.addEventListener('change', function() {
-            console.log('Valor selecionado:', this.value); // Verifique se este valor está correto
-            console.log('Valor de mediaIdInput antes da atribuição:', mediaIdInput.value); // Confirme se mediaIdInput já tem algum valor antes da atribuição
+            // console.log('Valor selecionado:', this.value); // Verifique se este valor está correto
+            // console.log('Valor de mediaIdInput antes da atribuição:', mediaIdInput.value); // Confirme se mediaIdInput já tem algum valor antes da atribuição
             mediaIdInput.value = this.value; // Atribui o valor selecionado em mediaIdInput
-            console.log('Valor de mediaIdInput após a atribuição:', mediaIdInput.value); // Verifique se mediaIdInput foi atualizado corretamente
+            // console.log('Valor de mediaIdInput após a atribuição:', mediaIdInput.value); // Verifique se mediaIdInput foi atualizado corretamente
         });
 
         function displaySuccessMessage(mediaType, fileName) {
