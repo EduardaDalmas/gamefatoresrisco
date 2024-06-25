@@ -50,11 +50,11 @@
                             <h5>Temas/Sessão</h5>
                             <div class="form-group col-12">
                                 <div class="row">
-                                    <div class="col-9">
+                                    <div class="col-10">
                                         <label for="topic" id="labeTopic">Nome do Tema</label>
                                         <input type="text" class="form-control" id="topic" name="topic" value="{{ old('topic') }}">
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <button type="submit" class="btn btn-outline-success btn-sm adicionar" id="addTopic">Adicionar</button>
                                     </div>
                                 </div>
@@ -65,6 +65,7 @@
                                     <div class="col-2"><a href="{{ route('topic.edit', $topic) }}" class="btn btn-outline-primary btn-sm">editar</a></div>
                                     <div class="col-2"><a href="{{ route('topic.delete', $topic) }}" class="btn btn-outline-danger btn-sm">excluir</a></div>
                                 </div>
+                                <br><hr><br>
                             @endforeach 
                         </form>
                     </div>
