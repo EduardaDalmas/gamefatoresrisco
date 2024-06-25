@@ -12,10 +12,12 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseAjaxController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\PasswordController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
@@ -75,6 +77,13 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('restore')->get('{option}/restore',          [OptionController::class, 'restore']);
         Route::name('delete') ->get('{option}/delete',           [OptionController::class, 'delete']);
     });
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::put('/password/update', [PasswordController::class, 'update'])->name('password.update');
+
 });
 
 
