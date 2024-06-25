@@ -1,11 +1,46 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-    <div class="container-fluid">
-        <div class="w-75"></div>
-        <div class="w-25 d-flex justify-content-end">
-            <form class="d-flex" method="POST" action="{{ route('logout') }}">
-            @csrf
-                <button class="btn btn-danger" type="submit">Logout</button>
-            </form>
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url('/home') }}">
+            {{ 'RainbowMinds' }}
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">{{ __('Questionários') }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex">
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
+                </a>
+    
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('home') }}" onclick="event.preventDefault(); document.getElementById('home-form').submit();">
+                        {{ __('Home') }}
+                    </a>
+    
+                    <form id="home-form" action="{{ route('home') }}" method="GET" class="d-none">
+                        @csrf
+                    </form>
+                    
+                    <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+    
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </li>
         </div>
     </div>
 </nav>
