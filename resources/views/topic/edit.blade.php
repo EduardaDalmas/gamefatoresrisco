@@ -142,11 +142,11 @@
                                         @elseif ($question->media->type == 'image_url')
                                             <img src="{{ $question->media->media_path }}" class="img-thumbnail" alt="Miniatura">
                                         @elseif ($question->media->type == 'video_file')
-                                            <video width="100" height="100" controls class="video-thumbnail">
+                                            <video class="img-thumbnail" controls class="video-thumbnail">
                                                 <source src="{{ asset('videos/' . $question->media->media_path) }}" type="video/{{ pathinfo($question->media->media_path, PATHINFO_EXTENSION) }}">
                                             </video>
                                         @elseif ($question->media->type == 'video_url')
-                                            <iframe width="100" height="100" src="{{ $question->media->media_path }}" frameborder="0" allowfullscreen></iframe>
+                                            <iframe class="img-thumbnail" src="{{ $question->media->media_path }}" frameborder="0" allowfullscreen></iframe>
                                         @endif
                                     </div>
                                 @else
