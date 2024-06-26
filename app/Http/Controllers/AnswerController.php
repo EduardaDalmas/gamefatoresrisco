@@ -20,27 +20,42 @@ class AnswerController extends Controller
     public function index(Questionnaire $questionnaire)
     {
         $questionaire_team = $questionnaire->teams()->get();
+        $questionnaire_topics = $questionnaire->topics()->get();
 
-        $questionnaire_team_people = [];
-        $person_answers = [];
+        $result = null;
+        $result['teams'] = array();
 
-        $result = [];
+        $result['questionnaire'] = $questionnaire;
 
         foreach ($questionaire_team as $team) {
-            $team_people = $team::with('people', 'questionnaires')->get();
 
-            $questionnaire_team_people = $team_people;
-        }
+            $team['people'] = $team->people()->get();
 
-        foreach ($questionnaire_team_people as $row) {
-            foreach ($row->people as $person) {
-                $person_answers = $person::with('answers')->get();
+            foreach ($team->people as $person) {
+                $person_answers = $person->answers()->get();
+
+                $person['answers_count'] = 0;
+
+                foreach ($questionnaire_topics as $topic) {
+                    $topic_questions = $topic->questions()->get();
+        
+                    foreach ($topic_questions as $topic_question) {
+                        $question_options = $topic_question->options()->get();
+
+                        foreach ($question_options as $option) {
+                            foreach ($person_answers as $person_answer) {
+                                if ($option->id == $person_answer->option_id) {
+                                    $person['answers_count'] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
             }
+
+            array_push($result['teams'], $team);
         }
 
-        $result['questionnaire_team_people'] = $questionnaire_team_people;
-        $result['person_answers'] = $person_answers;
-        //return $result;
         return view('answers.index', ["data" => $result]);
     }
 

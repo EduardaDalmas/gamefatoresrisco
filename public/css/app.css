@@ -5,6 +5,10 @@
     position: absolute;
 } */
 
+a {
+    text-decoration: none;
+}
+
 .background {
     background: linear-gradient(45deg, #55B5CF, #e52e71, #ff6a00);
     background-size: 400% 400%;
