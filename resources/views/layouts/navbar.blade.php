@@ -11,17 +11,17 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ route('home') }}">{{ __('Questionários') }}</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ route('home') }}">{{ __('Grupos de participantes') }}</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ route('home') }}">{{ __('Relatórios') }}</a>
                 </li>
