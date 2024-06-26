@@ -26,7 +26,8 @@
         
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <script src="{{ asset('js/ajax.js') }}" defer></script>       
+        <script src="{{ asset('js/ajax.js') }}" defer></script>    
+           
     </head>
     
     <body class="background">
