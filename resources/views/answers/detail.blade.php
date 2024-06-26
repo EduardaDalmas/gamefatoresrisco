@@ -19,7 +19,7 @@
             <thead>
                 <tr>
                     <th scope="col">
-                        <i class="bi bi-people-fill"></i> Tópicos
+                        <i class="bi bi-chat-left-fill"></i> Tópicos
                     </th>
                 </tr>
             </thead>
@@ -39,7 +39,7 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Questões</th>
+                                            <th scope="col"><i class="bi bi-question-square-fill"></i> Questões</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -58,7 +58,7 @@
                                                         <table class="table">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col">Alternativas</th>
+                                                                    <th scope="col"><i class="bi bi-card-list"></i> Alternativas</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
