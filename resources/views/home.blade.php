@@ -20,7 +20,7 @@
     </div>
     <div class="d-flex align-items-center justify-content-center mt-5">
         <h3 class="text-center">Meus Questionários</h3>
-        <a href="{{ route('questionnaire.create') }}" class="btn btn-custom ml-2"><i class="bi bi-plus-circle"></i></a>
+        <a href="{{ route('questionnaire.create') }}" class="btn btn-custom"><i class="bi bi-plus-circle"></i> Novo </a>
     </div>
     <div class="row justify-content-center">
         @foreach ($myQuestionnaires as $questionnaire)
