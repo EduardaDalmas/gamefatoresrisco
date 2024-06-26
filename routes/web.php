@@ -37,7 +37,6 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('finish')->get('finish',                          [ResponseController::class, 'finish']);
     });
 
-    Route::get('/upload', [MediaController::class, 'showUploadForm'])->name('media.upload.form');
     Route::post('/upload/video', [MediaController::class, 'videoUpload'])->name('media.video.upload');
     Route::post('/upload/image', [MediaController::class, 'imageUpload'])->name('media.image.upload');
     Route::post('/upload/video_url', [MediaController::class, 'videoUrlUpload'])->name('media.video.url.upload');

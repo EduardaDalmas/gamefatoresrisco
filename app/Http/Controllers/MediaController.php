@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class MediaController extends Controller
 {
-    public function showUploadForm()
-    {
-        return view('upload')->with('myMedia', Media::getByOwner());
-    }
-
     public function videoUpload(Request $request)
     {
         $file = $request->file("file");
