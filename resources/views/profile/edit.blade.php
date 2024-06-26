@@ -8,22 +8,18 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <div class="mb-3">
-                                <h2 class="text-dark">
-                                    {{ __('Profile Information') }}
-                                </h2>
-
-                                <p>
-                                    {{ __("Update your account's profile information and email address.") }}
-                                </p>
+                            <h2 class="text-dark">
+                                {{ __('Meus dados') }}
+                            </h2>
                         </div>
 
                         <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
                             @csrf
                             @method('patch')
 
-                            <div>
+                            <div class="mb-2">
                                 <label for="name" class="text-dark">{{ __('Name') }}</label>
-                                <input id="name" name="name" type="text" class="mt-1 block w-full form-input rounded-md shadow-sm" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" />
+                                <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name">
                                 @if ($errors->has('name'))
                                     <ul class="mt-2 text-sm text-red-600">
                                         @foreach ($errors->get('name') as $message)
@@ -35,7 +31,7 @@
 
                             <div>
                                 <label for="email" class="text-dark">{{ __('Email') }}</label>
-                                <input id="email" name="email" type="email" class="mt-1 block w-full form-input rounded-md shadow-sm" value="{{ old('email', $user->email) }}" required autocomplete="username" />
+                                <input id="email" name="email" type="email" class="form-control" value="{{ old('email', $user->email) }}" required autocomplete="username">
                                 @if ($errors->has('email'))
                                     <ul class="mt-2 text-sm text-red-600">
                                         @foreach ($errors->get('email') as $message)
@@ -47,24 +43,24 @@
                                 @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                                     <div>
                                         <p>
-                                            {{ __('Your email address is unverified.') }}
+                                            {{ __('E-mail não verificado.') }}
 
                                             <button form="send-verification" class="btn btn-primary">
-                                                {{ __('Click here to re-send the verification email.') }}
+                                                {{ __('Clique aqui para reenviar o e-mail.') }}
                                             </button>
                                         </p>
 
                                         @if (session('status') === 'verification-link-sent')
                                             <p>
-                                                {{ __('A new verification link has been sent to your email address.') }}
+                                                {{ __('Uma nova verificação foi enviada para seu e-mail.') }}
                                             </p>
                                         @endif
                                     </div>
                                 @endif
                             </div>
 
-                            <div class="flex items-center gap-4">
-                                <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                            <div class="flex centralizar mt-3">
+                                <button type="submit" class="btn btn-custom">{{ __('Salvar') }}</button>
 
                                 @if (session('status') === 'profile-updated')
                                     <p
@@ -91,18 +87,12 @@
         <div class="col-md-8 mt-3 mb-5">
             <div class="card centralizar p-3">
                 <div class="card-body">
-                    <div class="mb-3">
-
+                   
                     <div class="container">
-    
                         <div class="mb-3">
                             <h2 class="text-dark">
-                                {{ __('Update Password') }}
+                                {{ __('Alterar Senha') }}
                             </h2>
-
-                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                {{ __('Ensure your account is using a long, random password to stay secure.') }}
-                            </p>
                         </div>
                    
             
@@ -110,9 +100,9 @@
                             @csrf
                             @method('put')
 
-                            <div>
+                            <div class="mb-2">
                                 <label for="update_password_current_password" class="text-dark">{{ __('Current Password') }}</label>
-                                <input id="update_password_current_password" name="current_password" type="password" class="mt-1 block w-full" autocomplete="current-password" />
+                                <input id="update_password_current_password" name="current_password" type="password"  class="form-control"  autocomplete="current-password">
                                 @if ($errors->updatePassword->has('current_password'))
                                     <ul class="mt-2 text-sm text-red-600">
                                         @foreach ($errors->updatePassword->get('current_password') as $message)
@@ -122,9 +112,9 @@
                                 @endif
                             </div>
 
-                            <div>
+                            <div class="mb-2">
                                 <label for="update_password_password" class="text-dark">{{ __('New Password') }}</label>
-                                <input id="update_password_password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password" />
+                                <input id="update_password_password" name="password" type="password"  class="form-control"  autocomplete="new-password">
                                 @if ($errors->updatePassword->has('password'))
                                     <ul class="mt-2 text-sm text-red-600">
                                         @foreach ($errors->updatePassword->get('password') as $message)
@@ -134,9 +124,9 @@
                                 @endif
                             </div>
 
-                            <div>
+                            <div class="mb-2">
                                 <label for="update_password_password_confirmation" class="text-dark">{{ __('Confirm Password') }}</label>
-                                <input id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password" />
+                                <input id="update_password_password_confirmation" name="password_confirmation" type="password" class="form-control"  autocomplete="new-password">
                                 @if ($errors->updatePassword->has('password_confirmation'))
                                     <ul class="mt-2 text-sm text-red-600">
                                         @foreach ($errors->updatePassword->get('password_confirmation') as $message)
@@ -146,8 +136,8 @@
                                 @endif
                             </div>
 
-                            <div class="flex items-center gap-4">
-                                <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                            <div class="flex items-center centralizar gap-4">
+                                <button type="submit" class="btn btn-custom">{{ __('Salvar') }}</button>
 
                                 @if (session('status') === 'password-updated')
                                     <p

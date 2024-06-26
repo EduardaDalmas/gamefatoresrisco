@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8 mt-5 mb-5">
-                <div class="card centralizar p-5">
-                    <div class="card-body">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 mt-5 mb-5">
+            <div class="card p-5">
+                <div class="card-body">
                         <div class="mb-3 row align-items-center">
                             <div class="col-auto">
                                 <a href="{{ route('questionnaire.edit', ['questionnaire' => $topic->questionnaire]) }}"> <i class="bi bi-arrow-left-short icone"></i></a>
@@ -17,7 +17,7 @@
 
                         <form method="POST" action="{{ route('question.save', ['topic' => $topic]) }}">
                             @csrf
-                            <div class="form-group col-12">
+                            <div class="form-group ">
                                 <label for="pergunta">Adicionar pergunta</label>
                                 <textarea class="form-control" name="pergunta" id="pergunta" style="width: 100%" rows="4"></textarea>
                             </div>
@@ -118,37 +118,37 @@
                         <br><hr><br>
 
                         @foreach($questions as $question)
-                                <div class="col-auto">
-                                    <div class="row">
-                                        <h4>{{ $question->description }}</h4>
-                                    </div>
+                            <div class="col-auto">
+                                <div class="row">
+                                    <h4>{{ $question->description }}</h4>
+                                </div>
 
-                                    <div class="row col-5">
-                                        <label for="ratio">Peso</label>
-                                        <input class="form-control" type="number" id="ratio" value="{{ $question->ratio }}" {{ $question->trashed() ? 'disabled' : '' }}>
-                                    </div>
-                                        
-                                    <div class="row mt-2 ml-4 mb-4 mt-4">
-                                        <input class="form-check-input" type="checkbox" name="texto_livre" id="texto_livre" {{ $question->text ? 'checked' : '' }} disabled>
-                                        <label class="form-check-label" for="texto_livre">
-                                            Resposta em Texto Livre?
-                                        </label>
-                                    </div>
+                                <div class="row col-5">
+                                    <label for="ratio">Peso</label>
+                                    <input class="form-control" type="number" id="ratio" value="{{ $question->ratio }}" {{ $question->trashed() ? 'disabled' : '' }}>
+                                </div>
+                                    
+                                <div class="row mt-2 ml-4 mb-4 mt-4">
+                                    <input class="form-check-input" type="checkbox" name="texto_livre" id="texto_livre" {{ $question->text ? 'checked' : '' }} disabled>
+                                    <label class="form-check-label" for="texto_livre">
+                                        Resposta em Texto Livre?
+                                    </label>
+                                </div>
 
-                                    @if($question->media)
-                                    <div class="row col-12 mb-3">
-                                        @if ($question->media->type == 'image')
-                                            <img src="{{ asset('images/' . $question->media->media_path) }}" class="img-thumbnail" alt="Miniatura">
-                                        @elseif ($question->media->type == 'image_url')
-                                            <img src="{{ $question->media->media_path }}" class="img-thumbnail" alt="Miniatura">
-                                        @elseif ($question->media->type == 'video_file')
-                                            <video class="img-thumbnail" controls class="video-thumbnail">
-                                                <source src="{{ asset('videos/' . $question->media->media_path) }}" type="video/{{ pathinfo($question->media->media_path, PATHINFO_EXTENSION) }}">
-                                            </video>
-                                        @elseif ($question->media->type == 'video_url')
-                                            <iframe class="img-thumbnail" src="{{ $question->media->media_path }}" frameborder="0" allowfullscreen></iframe>
-                                        @endif
-                                    </div>
+                                @if($question->media)
+                                <div class="row col-12 mb-3">
+                                    @if ($question->media->type == 'image')
+                                        <img src="{{ asset('images/' . $question->media->media_path) }}" class="img-thumbnail" alt="Miniatura">
+                                    @elseif ($question->media->type == 'image_url')
+                                        <img src="{{ $question->media->media_path }}" class="img-thumbnail" alt="Miniatura">
+                                    @elseif ($question->media->type == 'video_file')
+                                        <video class="img-thumbnail" controls class="video-thumbnail">
+                                            <source src="{{ asset('videos/' . $question->media->media_path) }}" type="video/{{ pathinfo($question->media->media_path, PATHINFO_EXTENSION) }}">
+                                        </video>
+                                    @elseif ($question->media->type == 'video_url')
+                                        <iframe class="img-thumbnail" src="{{ $question->media->media_path }}" frameborder="0" allowfullscreen></iframe>
+                                    @endif
+                                </div>
                                 @else
                                     <div class="row col-12 mb-3">
                                         <p class="text-muted">Esta pergunta não possuí mídia cadastrada.</p>  
@@ -157,22 +157,22 @@
 
                                 <div class="row centralizar">
                                     @if($question->trashed())
-                                        <div class="col-2 form-group">
+                                        <div class="col-auto form-group">
                                             <label></label>
                                             <a href="{{ route('question.restore', ['question' => $question]) }}" class="btn btn-warning">Reativar</a>
                                         </div>
                                     @else
-                                        <div class="col-2 form-group">
-                                            <label></label>
-                                            <a href="{{ route('question.view', ['question' => $question]) }}" class="btn btn-primary">Opções</a>
-                                        </div>
-                                        <div class="col-2 form-group">
-                                            <label></label>
-                                            <a href="{{ route('question.delete', ['question' => $question]) }}" class="btn btn-danger">Excluir</a>
-                                        </div>
+                                    <div class="col-auto form-group">
+                                        <label></label>
+                                        <a href="{{ route('question.view', ['question' => $question]) }}" class="btn btn-primary">Opções</a>
+                                    </div>
+                                    <div class="col-auto form-group">
+                                        <label></label>
+                                        <a href="{{ route('question.delete', ['question' => $question]) }}" class="btn btn-danger">Excluir</a>
+                                    </div>
                                     @endif
                                 </div>
-                                <br><hr><br>
+                             <br><hr><br>
                             </div>                               
                         @endforeach
                     </div>
