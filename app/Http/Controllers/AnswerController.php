@@ -80,52 +80,43 @@ class AnswerController extends Controller
      */
     public function show(Person $person, Questionnaire $questionnaire)
     {
-        $topics = $questionnaire->topics()->get();
-        $answers = $person->answers()->get();
+       $topics = $questionnaire->topics()->get();
+       $person_answers = $person->answers()->get();
 
-        $questionnaire_estructure = [];
-        $answers_estructure = array();
-
-        $result = [];
+       $result['estructure_questionnaire'] = array();
+       $result['person'] = $person;
+       $result['questionnaire'] = $questionnaire;
 
         foreach ($topics as $topic) {
-            $topic_questions = $topic->with('questions')->where('questionnaire_id', '=', $topic->questionnaire_id)->get();
+            $questions = $topic->questions()->get();
 
-            foreach ($topic_questions as $topic_question) {
-                foreach ($topic_question["questions"] as $question) {
-                    $options = Option::where('question_id', '=', $question->id)->get();
+            $topic['questions'] = $questions;
 
-
-                    $question["options"] = $options;
-
-                    $questionnaire_estructure = $topic_questions;
-                }
-            }
-        }
-
-        foreach ($answers as $answer) {
-            $option = Option::where('id', '=', $answer->option_id)->get();
-
-            foreach ($option as $op) {
-                $question = Question::where('id', '=', $op->question_id)->get();
+            foreach ($questions as $question) {
+                $options = $question->options()->get();
                 
-                foreach ($question as $qt) {
-                    $answer['question'] = $qt;
+                $question['options'] = $options;
+                
+                foreach ($options as $option) {
 
-                    $topic = Topic::where('id', '=', $qt->topic_id)->get();
+                    $options_answers = $option->answers()->get();
 
-                    foreach ($topic as $tp) {
-                        $answer['topic'] = $tp;   
+                    foreach ($options_answers as $option_answer) {
+                        foreach ($person_answers as $person_answer) {
+                            if(($option_answer->person_id == $person->id) && ($option_answer->option_id == $person_answer->option_id)) {
+                                $option['person_answer'] = true;
+                            }
+                        }
                     }
                 }
             }
-            
-            array_push($answers_estructure, $answer);
-        }
-        
-        $result["questionnaire_estructure"] = $questionnaire_estructure;
-        $result["answers_estructure"] = $answers_estructure;
 
+            $topics = $topic;
+        }
+
+        array_push($result['estructure_questionnaire'], $topics);
+
+        //return $result;
         return view('answers.detail', ["data" => $result]);
     }
 
