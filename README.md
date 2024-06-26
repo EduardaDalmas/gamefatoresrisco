@@ -67,3 +67,7 @@ https://zerobugs.com.br/ver-post/codigo-sql-com-todas-as-cidades-e-estados-do-br
 ## Roleta 
 
 `dougtesting.net/`
+
+## Comando para criar turma
+
+`php artisan cria:turma` 
