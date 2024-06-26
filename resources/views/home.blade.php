@@ -1,7 +1,7 @@
 @extends('logged')
 
 @section('page')
-<div class="container">
+<div class="container mb-5">
     <h1 class="text-center mt-5">Olá, bem-vindo(a) ao Rainbow Minds</h1>
 
     <h3 class="text-center mt-5">Escolha um dos questionários abaixo para começar</h3>
@@ -29,9 +29,9 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $questionnaire->name }}</h5>
                         <p class="card-text">{{ $questionnaire->description }}</p>
-                        <a href="{{ route('questionnaire.delete', $questionnaire) }}" class="btn btn-custom">Excluir</a>
                         <a href="{{ route('answer.index', $questionnaire) }}" class="btn btn-custom">Ver Detalhes</a>
                         <a href="{{ route('questionnaire.edit', $questionnaire) }}" class="btn btn-custom">Editar</a>
+                        <a href="{{ route('questionnaire.delete', $questionnaire) }}" class="btn btn-custom">Excluir</a>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,8 @@
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
         
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">       
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <script src="{{ asset('js/ajax.js') }}" defer></script>       
     </head>
     
     <body class="background">

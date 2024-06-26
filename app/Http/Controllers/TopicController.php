@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Questionnaire;
 use App\Models\Topic;
+use App\Models\Media;
 
 class TopicController extends Controller
 {
@@ -19,7 +20,8 @@ class TopicController extends Controller
     public function edit(Topic $topic){
         return view('topic.edit')
             ->with('topic', $topic)
-            ->with('questions', $topic->questions()->withTrashed()->get());
+            ->with('questions', $topic->questions()->withTrashed()->get())
+            ->with('myMedia', Media::getByOwner());
     }
 
     public function delete(Topic $topic){

@@ -1,4 +1,5 @@
 @extends('logged')
+
 @section('page')
 <script src="https://tehsis.github.io/jfortune/jquery.fortune.js"></script>
 <div class="container">
