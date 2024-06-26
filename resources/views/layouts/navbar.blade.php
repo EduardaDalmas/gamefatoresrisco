@@ -1,8 +1,9 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md navbar-dark shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/home') }}">
-            {{ 'RainbowMinds' }}
+        <a class="navbar-brand" href="{{ route('home') }}">
+            <img src="{{ asset('images/logo.png') }}" alt="RainbowMinds" class="logo-small">
         </a>
+       
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -12,7 +13,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">{{ __('Questionários') }}</a>
+                    <a class="nav-link active" href="{{ route('home') }}">{{ __('Questionários') }}</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('home') }}">{{ __('Grupos de participantes') }}</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('home') }}">{{ __('Relatórios') }}</a>
                 </li>
             </ul>
         </div>
@@ -24,21 +35,19 @@
                 </a>
     
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('home') }}" onclick="event.preventDefault(); document.getElementById('home-form').submit();">
+                    <a class="dropdown-item" href="{{ route('home') }}">
                         {{ __('Home') }}
-                    </a>
+                    </a>                    
     
-                    <form id="home-form" action="{{ route('home') }}" method="GET" class="d-none">
-                        @csrf
-                    </form>
+
+                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                        {{ __('Meus dados') }}
+                    </a>
                     
-                    <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a class="dropdown-item" href="{{ route('goout') }}">
                         {{ __('Logout') }}
                     </a>
     
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
                 </div>
             </li>
         </div>

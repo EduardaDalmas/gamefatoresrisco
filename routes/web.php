@@ -23,7 +23,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 Route::name('login') ->get('/login',  [HomeController::class, 'login']);
 Auth::routes();
-
+Route::name('goout') ->get('/goout',  [HomeController::class, 'logout']);
 
 Route::middleware(['web', 'auth'])->group(function () {
     Route::name('home')->get('/', [HomeController::class, 'index']);

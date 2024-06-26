@@ -23,6 +23,34 @@
     }
 }
 
+.logo-small {
+    max-width: 3rem;
+}
+
+.navbar {
+    background-color: #e52e71;
+    opacity: 0.9;
+    width: 100%;
+    top: 0; /* Use top em vez de margin-top */
+    z-index: 1000;
+}
+
+.navbar a {
+    color: white;
+}
+
+.navbar .navbar-brand {
+    margin-right: 1rem; /* Adicione um espaçamento à direita para o branding */
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+    padding: 0.5rem 1rem; /* Ajuste os preenchimentos para um melhor alinhamento */
+}
+
+.navbar .dropdown-menu {
+    background-color: #1B1B1B; /* Mantenha o mesmo background para consistência */
+}
+
 li {
     list-style-type: none;
 }
@@ -238,4 +266,14 @@ h4 {
     margin-bottom: 20px; /* Adjust as needed */
     padding-bottom: 20px; /* Adjust as needed */
     border-bottom: 1px solid #ddd; /* Optional: Add a border to separate */
+}
+
+@media screen and (max-width: 768px) {
+    .navbar .navbar-brand {
+        margin-left: -7rem; /* Remove the margin for smaller screens */
+    }
+    
+    .logo-small {
+        display: none;
+    }
 }

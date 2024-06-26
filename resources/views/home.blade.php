@@ -1,7 +1,7 @@
 @extends('logged')
 
 @section('page')
-<div class="container">
+<div class="container mb-5">
     <h1 class="text-center mt-5">Olá, bem-vindo(a) ao Rainbow Minds</h1>
 
     <h3 class="text-center mt-5">Escolha um dos questionários abaixo para começar</h3>
