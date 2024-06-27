@@ -1,96 +1,71 @@
 @extends('logged')
 
 @section('page')
-<div class="container bg-white rounded p-5">
-    <div class="d-flex flex-row align-items-center">
-        <div>
-            <button class="btn-md border rounded p-2">
-                <a href="{{ route('answer.index', $data['questionnaire']) }}">
-                    <i class="bi bi-arrow-left"></i>
-                </a>
-            </button>
-        </div>
-        <div class="ms-3">
-            <h1 class="h1 text-dark">{{ $data['person']->name }}</h1>
-        </div>
-    </div>
-    <div class="">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">
-                        <i class="bi bi-chat-left-fill"></i> Tópicos
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data['estructure_questionnaire'] as $topic)
-                    <tr>
-                        <td>
-                            <button id="button-collapse-control" class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $topic->name }}" aria-expanded="false" aria-controls="{{ $topic->name }}">
-                                <i id="button-collapse-control-icon" class="bi bi-chevron-expand"></i>
-                            </button>
-                            {{ $topic->name }}
-                        </td>
-                    </tr>
-                    <tr class="collapse" id="{{ $topic->name }}">
-                        <td>
-                            <div class="row justify-content-center p-3">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"><i class="bi bi-question-square-fill"></i> Questões</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($topic->questions as $question)
-                                            <tr>
-                                                <td>
-                                                    <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#question-{{ $question->id }}" aria-expanded="false" aria-controls="question-{{ $question->id }}">
-                                                        <i class="bi bi-chevron-expand"></i>
-                                                    </button>
-                                                    {{ $question->description }}
-                                                </td>
-                                            </tr>
-                                            <tr class="collapse" id="question-{{ $question->id }}">
-                                                <td>
-                                                    <div class="row justify-content-center p-3">
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th scope="col"><i class="bi bi-card-list"></i> Alternativas</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach ($question->options as $option)
-                                                                    <tr>
-                                                                        @if ($option->person_answer)
-                                                                            <td class="border border-success" style="background-color: rgb(40, 167, 69, .2)">
-                                                                                <i class="bi bi-check-circle-fill"></i> {{ $option->description }}
-                                                                            </td>
-                                                                        @else
-                                                                            <td>
-                                                                                {{ $option->description }}
-                                                                            </td>
-                                                                        @endif
-                                                                    </tr>
-                                                                    
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 mt-5 mb-5">
+                <div class="card p-5">
+                    <div class="card-body">
+                        <div class="mb-3 row align-items-center">
+                            <div class="col-auto">
+                                <a href="{{ route('answer.index', $data['questionnaire']) }}"> <i class="bi bi-arrow-left-short icone"></i></a>
                             </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                            <div class="col-auto">
+                                <h1 class="h1 text-dark">Respostas: {{ $data['person']->name }}</h1>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="col-auto">
+                                <h4>Tópicos</h4>
+                            </div>
+                            <hr>
+                            @foreach ($data['estructure_questionnaire'] as $topic)
+                                <p>
+                                    <button class="btn btn-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-topic-{{ $loop->index }}" aria-expanded="false" aria-controls="collapse-topic-{{ $loop->index }}">
+                                        <span class="icon-expand bi bi-chevron-down"></span>
+                                        <span class="icon-collapse bi bi-chevron-up" style="display: none;"></span>
+                                        {{ $topic->name }}
+                                    </button>
+                                </p>
+                                <div>
+                                    <div class="collapse collapse-horizontal" id="collapse-topic-{{ $loop->index }}">
+                                        <div class="card card-body">
+                                            <div class="col-auto">
+                                                <h4>Questões</h4>
+                                            </div>
+                                            @foreach ($topic->questions as $question)
+                                                <p>
+                                                   <b> Questão:  {{ $question->description }} </b>
+                                                </p>
+                                                <div class="col-auto">
+                                                    <h6>Alternativas</h6>
+                                                </div>
+                                                @foreach ($question->options as $option)
+                                                    <div class="option {{ $option->person_answer ? 'selected-answer' : '' }}">
+                                                        @if ($option->person_answer)
+                                                            <i class="bi bi-check-circle-fill" style="color: green;"></i> {{ $option->description }}
+                                                        @else
+                                                            {{ $option->description }}
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                                <hr>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 @endsection
 
+@section('scripts')
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+@endsection

@@ -43,6 +43,14 @@ a {
     color: white;
 }
 
+.selected-answer {
+    background-color: rgba(36, 214, 77, 0.2);
+    border: 1px solid green;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 10px;
+}
+
 .navbar .navbar-brand {
     margin-right: 1rem; /* Adicione um espaçamento à direita para o branding */
 }
@@ -50,6 +58,13 @@ a {
 .navbar .navbar-nav .nav-item .nav-link {
     padding: 0.5rem 1rem; /* Ajuste os preenchimentos para um melhor alinhamento */
 }
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #1013ec;
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
 
 .navbar .dropdown-menu {
     background-color: #1B1B1B; /* Mantenha o mesmo background para consistência */
