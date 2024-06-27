@@ -4,6 +4,16 @@
 <div class="container mb-5">
     <h1 class="text-center mt-5">Olá, bem-vindo(a) ao Rainbow Minds</h1>
 
+    @if ($errors->any())
+        <div class="alert alert-danger" id="errorAlert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <h3 class="text-center mt-5">Escolha um dos questionários abaixo para começar</h3>
     <div class="row justify-content-center">
         @foreach ($questionnaires as $questionnaire)
@@ -20,7 +30,7 @@
     </div>
     <div class="d-flex align-items-center justify-content-center mt-5">
         <h3 class="text-center">Meus Questionários</h3>
-        <a href="{{ route('questionnaire.create') }}" class="btn btn-custom ml-2"><i class="bi bi-plus-circle"></i></a>
+        <a href="{{ route('questionnaire.create') }}" class="btn btn-custom"><i class="bi bi-plus-circle"></i> Novo </a>
     </div>
     <div class="row justify-content-center">
         @foreach ($myQuestionnaires as $questionnaire)
@@ -37,23 +47,14 @@
             </div>
         @endforeach
     </div>
-    @if ($errors->any())
-        <div class="alert alert-danger" id="errorAlert">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-
-        <script>
-            // JavaScript para ocultar a mensagem de erro após alguns segundos
-            setTimeout(function() {
-                document.getElementById('errorAlert').style.display = 'none';
-            }, 5000); // Tempo em milissegundos (neste caso, 5000ms = 5 segundos)
-            
-        </script>
-    @endif
 </div>
+<script>
+    // JavaScript para ocultar a mensagem de erro após alguns segundos
+    setTimeout(function() {
+        document.getElementById('errorAlert').style.display = 'none';
+    }, 5000); // Tempo em milissegundos (neste caso, 5000ms = 5 segundos)
+            
+</script>
+    
 @endsection
 

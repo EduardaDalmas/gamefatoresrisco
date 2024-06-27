@@ -6,180 +6,188 @@
         <div class="col-md-10 mt-5 mb-5">
             <div class="card p-5">
                 <div class="card-body">
-                        <div class="mb-3 row align-items-center">
-                            <div class="col-auto">
-                                <a href="{{ route('questionnaire.edit', ['questionnaire' => $topic->questionnaire]) }}"> <i class="bi bi-arrow-left-short icone"></i></a>
-                            </div>
-                            <div class="col-auto">
-                                <h4>{{ $topic->name }}</h4>
-                            </div>
+                    <div class="mb-3 row align-items-center">
+                        <div class="col-auto">
+                            <a href="{{ route('questionnaire.edit', ['questionnaire' => $topic->questionnaire]) }}">
+                                <i class="bi bi-arrow-left-short icone"></i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <h4>{{ $topic->name }}</h4>
+                        </div>
+                    </div>
+
+                    <form method="POST" action="{{ route('question.save', ['topic' => $topic]) }}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="pergunta">Adicionar pergunta</label>
+                            <textarea class="form-control" name="pergunta" id="pergunta" style="width: 100%" rows="4"></textarea>
+                        </div>
+                        <div class="form-check col-12 mb-3">
+                            <input class="form-check-input" type="checkbox" name="mediaCheck" id="mediaCheck">
+                            <label class="form-check-label" for="mediaCheck">Utilizar mídia</label>
                         </div>
 
-                        <form method="POST" action="{{ route('question.save', ['topic' => $topic]) }}">
-                            @csrf
-                            <div class="form-group ">
-                                <label for="pergunta">Adicionar pergunta</label>
-                                <textarea class="form-control" name="pergunta" id="pergunta" style="width: 100%" rows="4"></textarea>
-                            </div>
-                            <div class="form-check col-12 mb-3 ml-2">
-                                <input class="form-check-input" type="checkbox" name="mediaCheck" id="mediaCheck">
-                                <label class="form-check-label" for="mediaCheck">Utilizar mídia</label>
+                        <div id="mediaOptions" style="display: none;">
+                            <div class="form-group">
+                                <label for="mediaType">Selecione o tipo de mídia:</label>
+                                <select class="form-control" id="mediaType">
+                                    <option value="none">Nenhum</option>
+                                    <option value="videoFile">Upload de Vídeo</option>
+                                    <option value="imageFile">Upload de Imagem</option>
+                                    <option value="videoUrl">Link do YouTube</option>
+                                    <option value="imageUrl">Link de Imagem</option>
+                                    <option value="existingMedia">Escolher Mídia Existente</option>
+                                </select>
                             </div>
 
-                            <div id="mediaOptions" style="display: none;">
-                                <div class="form-group col-12">
-                                    <label for="mediaType">Selecione o tipo de mídia:</label>
-                                    <select class="form-control" id="mediaType">
-                                        <option value="none">Nenhum</option>
-                                        <option value="videoFile">Upload de Vídeo</option>
-                                        <option value="imageFile">Upload de Imagem</option>
-                                        <option value="videoUrl">Link do YouTube</option>
-                                        <option value="imageUrl">Link de Imagem</option>
-                                        <option value="existingMedia">Escolher Mídia Existente</option>
-                                    </select>
-                                </div>
-
-                                <div id="uploadVideo" class="media-upload-form" style="display: none;">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="videoName" placeholder="Escolher arquivo" readonly>
-                                            <div class="input-group-append">
-                                                <label class="btn btn-primary">
-                                                    Selecionar <input type="file" id="video" name="file" accept="video/mp4,video/webm" class="d-none">
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <button type="button" class="btn btn-success" onclick="uploadMedia('video')">Upload</button>
-                                            </div>
+                            <div id="uploadVideo" class="media-upload-form" style="display: none;">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="videoName" placeholder="Escolher arquivo" readonly>
+                                        <div class="input-group-append">
+                                            <label class="btn btn-primary">
+                                                Selecionar <input type="file" id="video" name="file" accept="video/mp4,video/webm" class="d-none">
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
+                                <button type="button" class="btn btn-success" onclick="uploadMedia('video')">Upload</button>
                             </div>
 
-
-                            <div id="uploadImage" style="display: none;">
-                            <div class="form-group">
-                                <label for="image">Selecione a imagem:</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="imageName" placeholder="Escolher arquivo" readonly>
-                                    <div class="input-group-append">
-                                        <label class="btn btn-primary">
-                                            Selecionar <input type="file" id="image" name="file" accept="image/jpeg,image/png,image/gif,image/webp" class="d-none">
-                                        </label>
+                            <div id="uploadImage" class="media-upload-form" style="display: none;">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="imageName" placeholder="Escolher arquivo" readonly>
+                                        <div class="input-group-append">
+                                            <label class="btn btn-primary">
+                                                Selecionar <input type="file" id="image" name="file" accept="image/jpeg,image/png,image/gif,image/webp" class="d-none">
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="button" class="btn btn-success" onclick="uploadMedia('image')">Upload</button>
                             </div>
-                        </div>
 
-                        <div id="videoUrl" style="display: none;">
-                            <div class="form-group">
-                                <label for="video_link">Link do Vídeo do YouTube:</label>
-                                <input type="text" class="form-control" id="video_link" name="video_link">
-                            </div>
-                            <button type="button" class="btn btn-success" onclick="uploadVideoUrl()">Salvar Link</button>
-                        </div>
-
-                        <div id="imageUrl" style="display: none;">
-                            <div class="form-group">
-                                <label for="image_link">Link da Imagem:</label>
-                                <input type="text" class="form-control" id="image_link" name="image_link">
-                            </div>
-                            <button type="button" class="btn btn-success" onclick="uploadImageUrl()">Salvar Link</button>
-                        </div>
-
-
-                        <div id="existingMedia" style="display: none;">
-                            @if ($myMedia->isNotEmpty())
+                            <div id="videoUrl" class="media-upload-form" style="display: none;">
                                 <div class="form-group">
-                                    <label for="mediaSelect">Selecione uma mídia</label>
-                                    <select class="form-control" id="mediaSelect" name="media_id">
-                                        <option value="none">Nenhum</option>
-                                        @foreach ($myMedia as $media)
-                                            <option value="{{ $media->id }}">
-                                                {{ $media->media_path }} ({{ ucfirst(str_replace('_', ' ', $media->type)) }})
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" class="form-control" id="video_link" name="video_link" placeholder="Insira o link do YouTube">
                                 </div>
-                            @else
-                                <p class="text-muted">Nenhuma mídia enviada ainda.</p>
-                            @endif
+                                <button type="button" class="btn btn-success" onclick="uploadVideoUrl()">Salvar Link</button>
+                            </div>
+
+                            <div id="imageUrl" class="media-upload-form" style="display: none;">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="image_link" name="image_link" placeholder="Insira o link da imagem">
+                                </div>
+                                <button type="button" class="btn btn-success" onclick="uploadImageUrl()">Salvar Link</button>
+                            </div>
+
+                            <div id="existingMedia" class="media-upload-form" style="display: none;">
+                                @if ($myMedia->isNotEmpty())
+                                    <div class="form-group">
+                                        <label for="mediaSelect">Selecione uma mídia</label>
+                                        <select class="form-control" id="mediaSelect" name="media_id">
+                                            <option value="none">Nenhum</option>
+                                            @foreach ($myMedia as $media)
+                                                <option value="{{ $media->id }}">
+                                                    {{ $media->original_media_name }} ({{ ucfirst(str_replace('_', ' ', $media->type)) }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @else
+                                    <p class="text-muted">Nenhuma mídia enviada ainda.</p>
+                                @endif
+                            </div>
                         </div>
 
                         <div id="successMessage" class="alert alert-success" style="display: none;"></div>
 
-                            <input type="hidden" name="media_id" id="media_id">
+                        <input type="hidden" name="media_id" id="media_id">
+                        <input type="hidden" id="originalFileName" name="originalFileName">
 
-                            <div class="form-group col-12 centralizar">
-                                <button type="submit" class="btn btn-custom">Salvar</button>
-                            </div>
-                        </form>
-                        <br><hr><br>
+                        <button type="submit" class="btn btn-primary mt-3">Salvar Pergunta</button>
+                    </form>
+                    <br><hr><br>
 
-                        @foreach($questions as $question)
-                            <div class="col-auto">
-                                <div class="row">
-                                    <h4>{{ $question->description }}</h4>
-                                </div>
+                    <div class="container">
+                        <div class="row mt-3">
+                            @foreach($questions as $question)
+                                <div class="col-lg-12 mb-4">
+                                    <div class="card card-custom">
+                                        <div class="card-body">
+                                            <!-- Conteúdo da pergunta -->
+                                            <div class="row mb-2">
+                                                <div class="col-lg-12">
+                                                    <h5>{{ $question->description }}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3 justify-content-center">
+                                                <div class="col-lg-4 text-center">
+                                                    <p><strong>Peso:</strong></p>
+                                                    <input class="form-control" type="number" id="ratio" value="{{ $question->ratio }}" {{ $question->trashed() ? 'disabled' : '' }}>
+                                                </div>
+                                                <div class="col-lg-4 text-center">
+                                                    <p><strong>Resposta em Texto Livre:</strong></p>
+                                                    <div class="form-check mt-2">
+                                                        <label class="form-check-label" for="texto_livre">
+                                                            <input class="form-check-input" type="checkbox" name="texto_livre" id="texto_livre" {{ $question->text ? 'checked' : '' }} disabled>
+                                                            Sim
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 text-center">
+                                                    <p><strong>Ações:</strong></p>
+                                                    <div class="btn-group" role="group">
+                                                        @if($question->trashed())
+                                                            <a href="{{ route('question.restore', ['question' => $question]) }}" class="btn btn-outline-warning btn-sm">Reativar</a>
+                                                        @else
+                                                            <a href="{{ route('question.view', ['question' => $question]) }}" class="btn btn-outline-primary btn-sm">Opções</a>
+                                                            <a href="{{ route('question.delete', ['question' => $question]) }}" class="btn btn-outline-danger btn-sm">Excluir</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                <div class="row col-5">
-                                    <label for="ratio">Peso</label>
-                                    <input class="form-control" type="number" id="ratio" value="{{ $question->ratio }}" {{ $question->trashed() ? 'disabled' : '' }}>
-                                </div>
-                                    
-                                <div class="row mt-2 ml-4 mb-4 mt-4">
-                                    <input class="form-check-input" type="checkbox" name="texto_livre" id="texto_livre" {{ $question->text ? 'checked' : '' }} disabled>
-                                    <label class="form-check-label" for="texto_livre">
-                                        Resposta em Texto Livre?
-                                    </label>
-                                </div>
-
-                                @if($question->media)
-                                <div class="row col-12 mb-3">
-                                    @if ($question->media->type == 'image')
-                                        <img src="{{ asset('images/' . $question->media->media_path) }}" class="img-thumbnail" alt="Miniatura">
-                                    @elseif ($question->media->type == 'image_url')
-                                        <img src="{{ $question->media->media_path }}" class="img-thumbnail" alt="Miniatura">
-                                    @elseif ($question->media->type == 'video_file')
-                                        <video class="img-thumbnail" controls class="video-thumbnail">
-                                            <source src="{{ asset('videos/' . $question->media->media_path) }}" type="video/{{ pathinfo($question->media->media_path, PATHINFO_EXTENSION) }}">
-                                        </video>
-                                    @elseif ($question->media->type == 'video_url')
-                                        <iframe class="img-thumbnail" src="{{ $question->media->media_path }}" frameborder="0" allowfullscreen></iframe>
-                                    @endif
-                                </div>
-                                @else
-                                    <div class="row col-12 mb-3">
-                                        <p class="text-muted">Esta pergunta não possuí mídia cadastrada.</p>  
-                                    </div>
-                                @endif
-
-                                <div class="row centralizar">
-                                    @if($question->trashed())
-                                        <div class="col-auto form-group">
-                                            <label></label>
-                                            <a href="{{ route('question.restore', ['question' => $question]) }}" class="btn btn-warning">Reativar</a>
+                                            <!-- Mídia da pergunta -->
+                                            @if($question->media)
+                                                <div class="row mt-3 justify-content-center">
+                                                    <div class="col-12 col-md-8">
+                                                        @if ($question->media->type == 'image')
+                                                            <img src="{{ asset('images/' . $question->media->media_path) }}" class="img-thumbnail" alt="Miniatura">
+                                                        @elseif ($question->media->type == 'image_url')
+                                                            <img src="{{ $question->media->media_path }}" class="img-thumbnail" alt="Miniatura">
+                                                        @elseif ($question->media->type == 'video_file')
+                                                            <video class="img-thumbnail video-fixed-size" controls>
+                                                                <source src="{{ asset('videos/' . $question->media->media_path) }}" type="video/{{ pathinfo($question->media->media_path, PATHINFO_EXTENSION) }}">
+                                                            </video>
+                                                        @elseif ($question->media->type == 'video_url')
+                                                        <div class="youtube-video">
+                                                            <iframe src="{{ $question->media->media_path }}" frameborder="0" allowfullscreen></iframe>
+                                                        </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="row mt-3">
+                                                    <div class="col-lg-12">
+                                                        <p class="text-muted">Esta pergunta não possui mídia cadastrada.</p>  
+                                                    </div>
+                                                </div>
+                                            @endif
                                         </div>
-                                    @else
-                                    <div class="col-auto form-group">
-                                        <label></label>
-                                        <a href="{{ route('question.view', ['question' => $question]) }}" class="btn btn-primary">Opções</a>
                                     </div>
-                                    <div class="col-auto form-group">
-                                        <label></label>
-                                        <a href="{{ route('question.delete', ['question' => $question]) }}" class="btn btn-danger">Excluir</a>
-                                    </div>
-                                    @endif
                                 </div>
-                             <br><hr><br>
-                            </div>                               
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -202,6 +210,7 @@
         const successMessage = document.getElementById('successMessage');
         const mediaSelect = document.getElementById('mediaSelect');
         const mediaIdInput = document.getElementById('media_id');
+        const originalFileName = document.getElementById('originalFileName');
 
         mediaCheckbox.addEventListener('change', function() {
             if (this.checked) {
@@ -235,11 +244,13 @@
         });
 
         videoInput.addEventListener('change', function() {
-            videoName.value = this.files[0].name;            
+            videoName.value = this.files[0].name;
+            originalFileName.value = this.files[0].name; // Store the original file name
         });
 
         imageInput.addEventListener('change', function() {
             imageName.value = this.files[0].name;
+            originalFileName.value = this.files[0].name; // Store the original file name
         });
 
         function hideAllMediaForms() {
@@ -257,7 +268,7 @@
             if (mediaType === 'video') {
                 inputFile = videoInput;
                 route = "{{ route('media.video.upload') }}";
-            }else if (mediaType === 'image') {
+            } else if (mediaType === 'image') {
                 inputFile = imageInput;
                 route = "{{ route('media.image.upload') }}";
             }
@@ -275,9 +286,11 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        videoName.value = data.fileName;
+                        const originalFileName = inputFile.files[0].name;
+                        videoName.value = originalFileName; // Display the original file name
+                        imageName.value = originalFileName; // Display the original file name
                         mediaIdInput.value = data.mediaId;
-                        displaySuccessMessage(mediaType, data.fileName);
+                        displaySuccessMessage(mediaType, originalFileName);
                         disableUploadButton(mediaType);
                     } else {
                         alert(data.error);
@@ -311,7 +324,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    successMessage.innerHTML = `Link de vídeo ${data.fileName} foi salvo com sucesso!`;
+                    successMessage.innerHTML = `Link de vídeo salvo com sucesso!`;
                     successMessage.style.display = 'block';
                     mediaIdInput.value = data.mediaId;
                 } else {
@@ -343,7 +356,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    successMessage.innerHTML = `Link de imagem ${data.fileName} foi salvo com sucesso!`;
+                    successMessage.innerHTML = `Link de imagem foi salvo com sucesso!`;
                     successMessage.style.display = 'block';
                     mediaIdInput.value = data.mediaId;
                 } else {
@@ -356,10 +369,7 @@
         }
 
         mediaSelect.addEventListener('change', function() {
-            // console.log('Valor selecionado:', this.value); // Verifique se este valor está correto
-            // console.log('Valor de mediaIdInput antes da atribuição:', mediaIdInput.value); // Confirme se mediaIdInput já tem algum valor antes da atribuição
-            mediaIdInput.value = this.value; // Atribui o valor selecionado em mediaIdInput
-            // console.log('Valor de mediaIdInput após a atribuição:', mediaIdInput.value); // Verifique se mediaIdInput foi atualizado corretamente
+            mediaIdInput.value = this.value;
         });
 
         function displaySuccessMessage(mediaType, fileName) {
@@ -373,4 +383,6 @@
             }
         }
     });
+
 </script>
+@endsection

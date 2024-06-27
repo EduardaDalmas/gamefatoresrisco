@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class MediaController extends Controller
 {
-    public function showUploadForm()
-    {
-        return view('upload')->with('myMedia', Media::getByOwner());
-    }
-
     public function videoUpload(Request $request)
     {
         $file = $request->file("file");
@@ -22,20 +17,27 @@ class MediaController extends Controller
             'file' => 'required|mimes:mp4,webm|max:102400', // Max size 100MB
         ]);
 
-        $fileName = $file->getClientOriginalName();
+        // Cria uma nova instância de Media sem salvar o arquivo ainda
+        $media = new Media();
+        $media->type = "video_file";
+        $media->user()->associate(Auth::user());
+        $media->original_media_name = $file->getClientOriginalName(); // Salva o nome original do arquivo
+        $media->save();
+
+        $fileName = $media->id . '-' . $file->getClientOriginalName();
         $destinationPath = "videos";
 
         if ($file->move($destinationPath, $fileName)) {
-            $media = new Media();
+            // Atualiza o caminho da mídia com o novo nome do arquivo
             $media->media_path = $fileName;
-            $media->type = "video_file";
-            $media->user()->associate(Auth::user());
             $media->save();
+
             return response()->json(['success' => true, 'fileName' => $fileName, 'mediaId' => $media->id]);
         } else {
             return response()->json(['success' => false, 'error' => 'Erro ao enviar o arquivo']);
         }
     }
+
 
     public function imageUpload(Request $request)
     {
@@ -45,20 +47,27 @@ class MediaController extends Controller
             'file' => 'required|mimes:jpeg,png,gif,webp|max:10240', // Max size 10MB
         ]);
 
-        $fileName = $file->getClientOriginalName();
+        // Cria uma nova instância de Media sem salvar o arquivo ainda
+        $media = new Media();
+        $media->type = "image";
+        $media->user()->associate(Auth::user());
+        $media->original_media_name = $file->getClientOriginalName(); // Salva o nome original do arquivo
+        $media->save();
+
+        $fileName = $media->id . '-' . $file->getClientOriginalName();
         $destinationPath = "images";
 
         if ($file->move($destinationPath, $fileName)) {
-            $media = new Media();
+            // Atualiza o caminho da mídia com o novo nome do arquivo
             $media->media_path = $fileName;
-            $media->type = "image";
-            $media->user()->associate(Auth::user());
             $media->save();
+
             return response()->json(['success' => true, 'fileName' => $fileName, 'mediaId' => $media->id]);
         } else {
             return response()->json(['success' => false, 'error' => 'Erro ao enviar o arquivo']);
         }
     }
+
 
     public function videoUrlUpload(Request $request)
     {

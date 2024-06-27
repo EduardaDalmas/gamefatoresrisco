@@ -42,11 +42,6 @@
                             @endif
                             
                         </div>
-
-                        <!-- validar se possui vídeo e necessário copiar aquele incorporar para apresentar o vídeo -->
-                        <!-- <div class="col-lg-12">
-                            <iframe width="750" height="515" src="https://www.youtube.com/embed/VPtcAtAuuQE?si=CrIX2-SdTUoxSse8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div> -->
                        
                         @if ($question->text)
                             <div class="form-floating mt-4">
