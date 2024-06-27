@@ -91,7 +91,7 @@
                                             <option value="none">Nenhum</option>
                                             @foreach ($myMedia as $media)
                                                 <option value="{{ $media->id }}">
-                                                    {{ $media->media_path }} ({{ ucfirst(str_replace('_', ' ', $media->type)) }})
+                                                    {{ $media->original_media_name }} ({{ ucfirst(str_replace('_', ' ', $media->type)) }})
                                                 </option>
                                             @endforeach
                                         </select>
@@ -105,6 +105,7 @@
                         <div id="successMessage" class="alert alert-success" style="display: none;"></div>
 
                         <input type="hidden" name="media_id" id="media_id">
+                        <input type="hidden" id="originalFileName" name="originalFileName">
 
                         <button type="submit" class="btn btn-primary mt-3">Salvar Pergunta</button>
                     </form>
@@ -158,7 +159,7 @@
                                                         @elseif ($question->media->type == 'image_url')
                                                             <img src="{{ $question->media->media_path }}" class="img-thumbnail" alt="Miniatura">
                                                         @elseif ($question->media->type == 'video_file')
-                                                            <video class="img-thumbnail" controls class="video-thumbnail">
+                                                            <video class="img-thumbnail video-fixed-size" controls>
                                                                 <source src="{{ asset('videos/' . $question->media->media_path) }}" type="video/{{ pathinfo($question->media->media_path, PATHINFO_EXTENSION) }}">
                                                             </video>
                                                         @elseif ($question->media->type == 'video_url')
@@ -209,6 +210,7 @@
         const successMessage = document.getElementById('successMessage');
         const mediaSelect = document.getElementById('mediaSelect');
         const mediaIdInput = document.getElementById('media_id');
+        const originalFileName = document.getElementById('originalFileName');
 
         mediaCheckbox.addEventListener('change', function() {
             if (this.checked) {
@@ -242,11 +244,13 @@
         });
 
         videoInput.addEventListener('change', function() {
-            videoName.value = this.files[0].name;            
+            videoName.value = this.files[0].name;
+            originalFileName.value = this.files[0].name; // Store the original file name
         });
 
         imageInput.addEventListener('change', function() {
             imageName.value = this.files[0].name;
+            originalFileName.value = this.files[0].name; // Store the original file name
         });
 
         function hideAllMediaForms() {
@@ -264,7 +268,7 @@
             if (mediaType === 'video') {
                 inputFile = videoInput;
                 route = "{{ route('media.video.upload') }}";
-            }else if (mediaType === 'image') {
+            } else if (mediaType === 'image') {
                 inputFile = imageInput;
                 route = "{{ route('media.image.upload') }}";
             }
@@ -282,9 +286,11 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        videoName.value = data.fileName;
+                        const originalFileName = inputFile.files[0].name;
+                        videoName.value = originalFileName; // Display the original file name
+                        imageName.value = originalFileName; // Display the original file name
                         mediaIdInput.value = data.mediaId;
-                        displaySuccessMessage(mediaType, data.fileName);
+                        displaySuccessMessage(mediaType, originalFileName);
                         disableUploadButton(mediaType);
                     } else {
                         alert(data.error);
@@ -363,10 +369,7 @@
         }
 
         mediaSelect.addEventListener('change', function() {
-            // console.log('Valor selecionado:', this.value); // Verifique se este valor está correto
-            // console.log('Valor de mediaIdInput antes da atribuição:', mediaIdInput.value); // Confirme se mediaIdInput já tem algum valor antes da atribuição
-            mediaIdInput.value = this.value; // Atribui o valor selecionado em mediaIdInput
-            // console.log('Valor de mediaIdInput após a atribuição:', mediaIdInput.value); // Verifique se mediaIdInput foi atualizado corretamente
+            mediaIdInput.value = this.value;
         });
 
         function displaySuccessMessage(mediaType, fileName) {
@@ -380,5 +383,6 @@
             }
         }
     });
+
 </script>
 @endsection

@@ -324,4 +324,12 @@ h4 {
     margin-bottom: 1.5rem;
 }
 
+.video-fixed-size {
+    width: 100%; /* Ajusta a largura do vídeo para preencher o contêiner */
+    max-width: 600px; /* Define uma largura máxima para os vídeos */
+    height: auto; /* Mantém a proporção do vídeo */
+    display: block;
+    margin: 0 auto; /* Centraliza o vídeo horizontalmente */
+}
+
 
