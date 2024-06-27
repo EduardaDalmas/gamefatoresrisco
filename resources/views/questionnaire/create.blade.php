@@ -6,9 +6,15 @@
             <div class="col-md-8 mt-5 mb-5">
                 <div class="card centralizar p-5">
                     <div class="card-body">
-                        <div class="mb-3">
-                            <h4>Criar questionário</h4>
+                        <div class="mb-3 row align-items-center">
+                            <div class="col-auto">
+                                <a href="{{ route('home') }}"> <i class="bi bi-arrow-left-short icone"></i></a>
+                            </div>
+                            <div class="col-auto">
+                                <h4>Criar questionário</h4>
+                            </div>
                         </div>
+                  
                         <form action="{{ route("questionnaire.save") }}" method="POST">
                             @csrf
                             <div class="form-group col-12">
