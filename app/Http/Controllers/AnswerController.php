@@ -91,14 +91,13 @@ class AnswerController extends Controller
             $questions = $topic->questions()->get();
 
             $topic['questions'] = $questions;
-
+            
             foreach ($questions as $question) {
                 $options = $question->options()->get();
                 
                 $question['options'] = $options;
                 
                 foreach ($options as $option) {
-
                     $options_answers = $option->answers()->get();
 
                     foreach ($options_answers as $option_answer) {
@@ -110,13 +109,10 @@ class AnswerController extends Controller
                     }
                 }
             }
-
-            $topics = $topic;
         }
 
-        array_push($result['estructure_questionnaire'], $topics);
+        $result['estructure_questionnaire'] = $topics;
 
-        //return $result;
         return view('answers.detail', ["data" => $result]);
     }
 

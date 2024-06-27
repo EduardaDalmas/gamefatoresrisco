@@ -18,6 +18,7 @@ use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseAjaxController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\TeamsController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
@@ -83,6 +84,11 @@ Route::middleware(['web', 'auth'])->group(function () {
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::put('/password/update', [PasswordController::class, 'update'])->name('password.update');
+
+    Route::name('teams.')->prefix('teams')->group(callback: function () {
+        Route::name('index')->get('index',                   [TeamsController::class, 'index']);
+        Route::name('show')->get('{team}',                     [TeamsController::class, 'show']);
+    });
 
 });
 
