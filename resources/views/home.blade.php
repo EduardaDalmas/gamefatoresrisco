@@ -4,6 +4,16 @@
 <div class="container mb-5">
     <h1 class="text-center mt-5">Olá, bem-vindo(a) ao Rainbow Minds</h1>
 
+    @if ($errors->any())
+        <div class="alert alert-danger" id="errorAlert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <h3 class="text-center mt-5">Escolha um dos questionários abaixo para começar</h3>
     <div class="row justify-content-center">
         @foreach ($questionnaires as $questionnaire)
@@ -37,15 +47,7 @@
             </div>
         @endforeach
     </div>
-    @if ($errors->any())
-        <div class="alert alert-danger" id="errorAlert">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-
+    
         <script>
             // JavaScript para ocultar a mensagem de erro após alguns segundos
             setTimeout(function() {
@@ -53,7 +55,7 @@
             }, 5000); // Tempo em milissegundos (neste caso, 5000ms = 5 segundos)
             
         </script>
-    @endif
+    
 </div>
 @endsection
 
