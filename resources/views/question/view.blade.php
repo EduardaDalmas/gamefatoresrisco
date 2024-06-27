@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 mt-5 mb-5">
-                <div class="card centralizar p-5">
+                <div class="card p-5">
                     <div class="card-body">
                         <div class="mb-3 row align-items-center">
                             <div class="col-auto">
