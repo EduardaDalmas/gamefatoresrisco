@@ -47,15 +47,14 @@
             </div>
         @endforeach
     </div>
-    
-        <script>
-            // JavaScript para ocultar a mensagem de erro após alguns segundos
-            setTimeout(function() {
-                document.getElementById('errorAlert').style.display = 'none';
-            }, 5000); // Tempo em milissegundos (neste caso, 5000ms = 5 segundos)
-            
-        </script>
-    
 </div>
+<script>
+    // JavaScript para ocultar a mensagem de erro após alguns segundos
+    setTimeout(function() {
+        document.getElementById('errorAlert').style.display = 'none';
+    }, 5000); // Tempo em milissegundos (neste caso, 5000ms = 5 segundos)
+            
+</script>
+    
 @endsection
 

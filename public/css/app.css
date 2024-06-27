@@ -324,14 +324,4 @@ h4 {
     margin-bottom: 1.5rem;
 }
 
-    .vertical-line {
-        border-left: 1px solid #ccc; /* Adiciona uma linha vertical visível */
-        height: 100%; /* Garante que a linha vertical tenha a altura total da seção */
-        position: absolute; /* Permite posicionar a linha vertical corretamente */
-        top: 0; /* Alinha a linha vertical ao topo da coluna */
-        bottom: 0; /* Alinha a linha vertical à parte inferior da coluna */
-        left: 50%; /* Posiciona a linha vertical no meio da coluna */
-        margin-left: -1px; /* Ajusta o deslocamento para a linha vertical estar exatamente no meio */
-    }
-
 
