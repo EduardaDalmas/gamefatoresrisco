@@ -60,7 +60,28 @@ li {
 }
 
 .img-thumbnail {
-    max-width: 50rem;
+    max-width: 100%; /* Para garantir que a imagem ou vídeo seja responsivo */
+    height: auto;
+}
+
+.youtube-video {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* Proporção 16:9 */
+    position: relative;
+    overflow: hidden;
+}
+
+.youtube-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-group .btn {
+    margin-right: 5px; /* Ajuste o espaçamento entre os botões conforme necessário */
 }
 
 .icone {
@@ -287,4 +308,15 @@ h4 {
 .form-group {
     margin-bottom: 1.5rem;
 }
+
+    .vertical-line {
+        border-left: 1px solid #ccc; /* Adiciona uma linha vertical visível */
+        height: 100%; /* Garante que a linha vertical tenha a altura total da seção */
+        position: absolute; /* Permite posicionar a linha vertical corretamente */
+        top: 0; /* Alinha a linha vertical ao topo da coluna */
+        bottom: 0; /* Alinha a linha vertical à parte inferior da coluna */
+        left: 50%; /* Posiciona a linha vertical no meio da coluna */
+        margin-left: -1px; /* Ajusta o deslocamento para a linha vertical estar exatamente no meio */
+    }
+
 
