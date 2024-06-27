@@ -38,7 +38,7 @@
                                                 <h5>{{ $person->name }}</h5>
                                             </div>
                                             <div class="col-5 d-flex justify-content-end align-items-end">
-                                                <a href="{{ route('answer.show', [$person->id, $questionnaire_team['questionnaires'][0]->id ]) }}" class="btn btn-custom btn-sm">Ver respostas</a>
+                                                <a href="{{ route('answer.show', [$person->id, $data['questionnaire']->id ]) }}" class="btn btn-custom btn-sm">Ver respostas</a>
                                             </div>
                                         </div>
                                         @if (count($questionnaire_team->people) > count($questionnaire_team->people) - 1)
