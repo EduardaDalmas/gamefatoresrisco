@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\{Builder, Model, SoftDeletes};
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany, HasManyThrough};
-
+use Illuminate\Support\Facades\Auth;
 
 class Question extends Model
 {
@@ -22,7 +22,9 @@ class Question extends Model
     public function scopePending(Builder $query): void
     {
         $query->whereHas('options');
-        $query->whereDoesntHave('answers');
+        $query->whereDoesntHave('answers', function (Builder $query) {
+            $query->where('person_id', Auth::user()->person->id);
+        });
     }
 
 
