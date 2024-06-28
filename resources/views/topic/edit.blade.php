@@ -24,6 +24,11 @@
                             <textarea class="form-control" name="pergunta" id="pergunta" style="width: 100%" rows="3"></textarea>
                         </div>
                         <div class="col-12 mb-3 mt-3">
+                            <input type="hidden" name="habilita_texto_livre" value="0"> <!-- Valor padrão quando não marcado -->
+                            <input class="form-check-input" type="checkbox" name="habilita_texto_livre" id="habilita_texto_livre" value="1">
+                            <label class="form-check-label" for="habilita_texto_livre">Resposta em texto livre</label>
+                        </div>
+                        <div class="col-12 mb-3 mt-3">
                             <input class="form-check-input" type="checkbox" name="mediaCheck" id="mediaCheck">
                             <label class="form-check-label" for="mediaCheck">Utilizar mídia</label>
                         </div>
@@ -385,5 +390,15 @@
         }
     });
 
+</script>
+<script>
+    // Verifica se o checkbox está marcado ao enviar o formulário
+    document.querySelector('form').addEventListener('submit', function() {
+        if (document.getElementById('habilita_texto_livre').checked) {
+            document.querySelector('input[name="habilita_texto_livre"]').value = 1;
+        } else {
+            document.querySelector('input[name="habilita_texto_livre"]').value = 0;
+        }
+    });
 </script>
 @endsection

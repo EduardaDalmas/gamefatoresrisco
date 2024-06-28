@@ -14,6 +14,7 @@ class QuestionController extends Controller
         $question = new Question();
         $question->topic()->associate($topic);
         $question->description = $request->pergunta;
+        $question->text = $request->habilita_texto_livre;
 
         if ($request->filled('media_id')) {
             $media = Media::find($request->media_id);
