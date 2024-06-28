@@ -9,7 +9,7 @@
                 @csrf
                     <div class="card-body">
                         <div class="mb-3">
-                            <h4>Pergunta {{$question->order}}</h4>
+                            <h4>Pergunta</h4>
                         </div>
 
                         <div>

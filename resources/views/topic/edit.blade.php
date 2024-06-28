@@ -19,17 +19,17 @@
 
                     <form method="POST" action="{{ route('question.save', ['topic' => $topic]) }}">
                         @csrf
-                        <div class="form-group">
-                            <label for="pergunta">Adicionar pergunta</label>
-                            <textarea class="form-control" name="pergunta" id="pergunta" style="width: 100%" rows="4"></textarea>
+                        <div>
+                            <label for="pergunta" class="mb-2"><b>Adicionar pergunta:</b></label>
+                            <textarea class="form-control" name="pergunta" id="pergunta" style="width: 100%" rows="3"></textarea>
                         </div>
-                        <div class="form-check col-12 mb-3">
+                        <div class="col-12 mb-3 mt-3">
                             <input class="form-check-input" type="checkbox" name="mediaCheck" id="mediaCheck">
                             <label class="form-check-label" for="mediaCheck">Utilizar mídia</label>
                         </div>
 
                         <div id="mediaOptions" style="display: none;">
-                            <div class="form-group">
+                            <div>
                                 <label for="mediaType">Selecione o tipo de mídia:</label>
                                 <select class="form-control" id="mediaType">
                                     <option value="none">Nenhum</option>
@@ -42,7 +42,7 @@
                             </div>
 
                             <div id="uploadVideo" class="media-upload-form" style="display: none;">
-                                <div class="form-group">
+                                <div >
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="videoName" placeholder="Escolher arquivo" readonly>
                                         <div class="input-group-append">
@@ -52,11 +52,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-success" onclick="uploadMedia('video')">Upload</button>
+                                <button type="button" class="btn btn-success mt-2" onclick="uploadMedia('video')">Upload</button>
                             </div>
 
                             <div id="uploadImage" class="media-upload-form" style="display: none;">
-                                <div class="form-group">
+                                <div>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="imageName" placeholder="Escolher arquivo" readonly>
                                         <div class="input-group-append">
@@ -66,26 +66,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-success" onclick="uploadMedia('image')">Upload</button>
+                                <button type="button" class="btn btn-success mt-2" onclick="uploadMedia('image')">Upload</button>
                             </div>
 
                             <div id="videoUrl" class="media-upload-form" style="display: none;">
-                                <div class="form-group">
+                                <div >
                                     <input type="text" class="form-control" id="video_link" name="video_link" placeholder="Insira o link do YouTube">
                                 </div>
-                                <button type="button" class="btn btn-success" onclick="uploadVideoUrl()">Salvar Link</button>
+                                <button type="button" class="btn btn-success mt-2" onclick="uploadVideoUrl()">Salvar Link</button>
                             </div>
 
                             <div id="imageUrl" class="media-upload-form" style="display: none;">
-                                <div class="form-group">
+                                <div >
                                     <input type="text" class="form-control" id="image_link" name="image_link" placeholder="Insira o link da imagem">
                                 </div>
-                                <button type="button" class="btn btn-success" onclick="uploadImageUrl()">Salvar Link</button>
+                                <button type="button" class="btn btn-success mt-2" onclick="uploadImageUrl()">Salvar Link</button>
                             </div>
 
                             <div id="existingMedia" class="media-upload-form" style="display: none;">
                                 @if ($myMedia->isNotEmpty())
-                                    <div class="form-group">
+                                    <div >
                                         <label for="mediaSelect">Selecione uma mídia</label>
                                         <select class="form-control" id="mediaSelect" name="media_id">
                                             <option value="none">Nenhum</option>
@@ -107,7 +107,8 @@
                         <input type="hidden" name="media_id" id="media_id">
                         <input type="hidden" id="originalFileName" name="originalFileName">
 
-                        <button type="submit" class="btn btn-primary mt-3">Salvar Pergunta</button>
+                        <div class="centralizar"><button type="submit" class="btn btn-custom mt-3">Salvar Pergunta</button></div>
+                        
                     </form>
                     <br><hr><br>
 

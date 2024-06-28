@@ -38,31 +38,26 @@
                                 
                                     {{-- <div class="collapse collapse-horizontal" id="collapse-topic-{{ $loop->index }}"> --}}
                                         <div class="card card-body">
-                                            @foreach ($topic->questions as $question)
-                                                <p>
-                                                    <b> Questão:  {{ $question->description }} </b>
-                                                </p>
+                                            @foreach ($topic->questions as $index => $question)
+                                                <p><b> Questão:  {{ $question->description }} </b></p>
                                                 <div class="col-auto">
                                                     <h6>Alternativas</h6>
                                                 </div>
-                                                @foreach ($question->options as $index => $option)
-
-                                                @php
-                                                    $optionsCount = count($question->options);
-                                                @endphp
-                                                    <div class="option {{ $option->person_answer ? 'selected-answer' : '' }}">
+                                                @foreach ($question->options as $optionIndex => $option)
+                                                    <div class="option {{ $option->person_answer ? 'selected-answer' : 'no-selected-answer' }}">
                                                         @if ($option->person_answer)
                                                             <i class="bi bi-check-circle-fill" style="color: green;"></i> {{ $option->description }}
                                                         @else
-                                                            {{ $option->description }}
+                                                            <i class="bi bi-check-circle" style="color: grey;"></i> {{ $option->description }}
                                                         @endif
                                                     </div>
-                                                    @if ($index < $optionsCount - 1)
-                                                        <hr>
-                                                    @endif
                                                 @endforeach
+                                                @if ($index < count($topic->questions) - 1)
+                                                    <hr>
+                                                @endif
                                             @endforeach
                                         </div>
+                                        
                                     {{-- </div> --}}
                                 </div>
                             @endforeach

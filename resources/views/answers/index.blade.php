@@ -30,23 +30,33 @@
                               </p>
                               <div>
                                 <div class="collapse collapse-horizontal" id="collapseWidthExample-{{ $questionnaire_team->id }}">
-                                  <div class="card card-body">
-                                    @foreach ($questionnaire_team->people as $person)
-                                    @if ($person->answers_count > 0)
-                                        <div class="row w-100">
-                                            <div class="col-7 d-flex align-items-center">
-                                                <h5>{{ $person->name }}</h5>
-                                            </div>
-                                            <div class="col-5 d-flex justify-content-end align-items-end">
-                                                <a href="{{ route('answer.show', [$person->id, $data['questionnaire']->id ]) }}" class="btn btn-custom btn-sm">Ver respostas</a>
-                                            </div>
-                                        </div>
-                                        @if (count($questionnaire_team->people) > count($questionnaire_team->people) - 1)
-                                            <hr>
+                                    <div class="card card-body">
+                                        @php
+                                            $peopleWithAnswers = $questionnaire_team->people->filter(function($person) {
+                                                return $person->answers_count > 0;
+                                            });
+                                            $peopleCount = $peopleWithAnswers->count();
+                                        @endphp
+                                    
+                                        @if ($peopleCount > 0)
+                                            @foreach ($peopleWithAnswers as $index => $person)
+                                                <div class="row w-100">
+                                                    <div class="col-7 d-flex align-items-center">
+                                                        <h5>{{ $person->name }}</h5>
+                                                    </div>
+                                                    <div class="col-5 d-flex justify-content-end align-items-end">
+                                                        <a href="{{ route('answer.show', [$person->id, $data['questionnaire']->id ]) }}" class="btn btn-custom btn-sm">Ver respostas</a>
+                                                    </div>
+                                                </div>
+                                                @if ($index < $peopleCount - 1)
+                                                    <hr>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <p>Nenhuma pessoa do grupo respondeu ainda.</p>
                                         @endif
-                                    @endif
-                                    @endforeach
-                                  </div>
+                                    </div>
+                                    
                                 </div>
                               </div>
                             @endforeach

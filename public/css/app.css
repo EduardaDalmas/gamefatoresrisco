@@ -51,6 +51,13 @@ a {
     border-radius: 10px;
 }
 
+.no-selected-answer {
+    border: 1px solid grey;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 10px;
+}
+
 .navbar .navbar-brand {
     margin-right: 1rem; /* Adicione um espaçamento à direita para o branding */
 }
