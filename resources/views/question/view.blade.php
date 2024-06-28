@@ -22,6 +22,10 @@
 
                         <form method="POST" action="{{ route('option.save', ['question' => $question]) }}">
                             @csrf
+                            <div class="mb-3">
+                                <label for="nomeOpcao">Adicionar a identificação da opção. <i>Ex: A) ou 1. </i></label>
+                                <textarea class="form-control" name="nomeOpcao" id="nomeOpcao" style="width: 100%" rows="1"></textarea>
+                            </div>
                             <div class="">
                                 <label for="resposta">Adicionar opção de resposta</label>
                                 <textarea class="form-control" name="resposta" id="resposta" style="width: 100%" rows="4"></textarea>

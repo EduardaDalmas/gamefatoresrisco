@@ -12,7 +12,7 @@ class OptionController extends Controller
         $option = new Option();
         $option->question()->associate($question);
         $option->description = $request->resposta;
-        $option->name = $request->resposta;
+        $option->name = $request->nomeOpcao;
         $option->save();
         return redirect()->route('question.view', ['question' => $question]);
     }

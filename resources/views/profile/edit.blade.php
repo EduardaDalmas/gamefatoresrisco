@@ -3,8 +3,8 @@
 @section('page')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 mt-3 mb-5">
-            <div class="card centralizar p-3">
+        <div class="col-md-6 mt-3 mb-5">
+            <div class="card centralizar p-1">
                 <div class="card-body">
                     <div class="mb-3">
                         <div class="mb-3">
@@ -84,7 +84,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 mt-3 mb-5">
+        <div class="col-md-6 mt-3 mb-5">
             <div class="card centralizar p-3">
                 <div class="card-body">
                    

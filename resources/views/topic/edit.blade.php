@@ -144,7 +144,7 @@
                                                         @if($question->trashed())
                                                             <a href="{{ route('question.restore', ['question' => $question]) }}" class="btn btn-outline-warning btn-sm">Reativar</a>
                                                         @else
-                                                            <a href="{{ route('question.view', ['question' => $question]) }}" class="btn btn-outline-primary btn-sm">Opções</a>
+                                                            <a href="{{ route('question.view', ['question' => $question]) }}" class="btn btn-outline-primary btn-sm">Adicionar opções</a>
                                                             <a href="{{ route('question.delete', ['question' => $question]) }}" class="btn btn-outline-danger btn-sm">Excluir</a>
                                                         @endif
                                                     </div>
