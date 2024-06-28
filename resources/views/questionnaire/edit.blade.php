@@ -18,11 +18,11 @@
                         <form action="{{ route("questionnaire.update", ['questionnaire' => $questionnaire->id]) }}" method="POST">
                             @method('PUT')
                             @csrf
-                            <div class="form-group col-12">
+                            <div class="mb-3">
                                 <label for="name" id="labelNome">Nome do questionário</label><span class="text-danger fw-bold"> *</span>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') ?? $questionnaire->name }}">
                             </div>
-                            <div class="form-group col-12">
+                            <div class="mb-3">
                                 <label for="description" id="labelObjetivo">Objetivo</label>
                                 <textarea name="description" id="description" rows="4" class="form-control">{{ old('description') ?? $questionnaire->description }}</textarea>
                             </div>
@@ -48,19 +48,19 @@
                                 </div>
                             </div>
                             <h5>Temas/Sessão</h5>
-                            <div class="form-group col-12">
-                                <div class="row">
-                                    <div class="col-10">
+                            <div class="">
+                                <div class="">
+                                    <div class="col-auto">
                                         <label for="topic" id="labeTopic">Nome do Tema</label>
                                         <input type="text" class="form-control" id="topic" name="topic" value="{{ old('topic') }}">
                                     </div>
                                     <div class="col-2">
-                                        <button type="submit" class="btn btn-outline-success btn-sm adicionar" id="addTopic">Adicionar</button>
+                                        <button type="submit" class="btn btn-outline-success btn-sm mt-2" id="addTopic">Adicionar</button>
                                     </div>
                                 </div>
                             </div>
                             @foreach($questionnaire->topics as $topic)
-                                <div class="row mb-2">
+                                <div class="row mb-2 mt-5">
                                     <div class="col-8">{{ $topic->name }}</div>
                                     <div class="col-2"><a href="{{ route('topic.edit', $topic) }}" class="btn btn-outline-primary btn-sm">editar</a></div>
                                     <div class="col-2"><a href="{{ route('topic.delete', $topic) }}" class="btn btn-outline-danger btn-sm">excluir</a></div>
