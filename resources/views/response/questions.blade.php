@@ -53,7 +53,7 @@
                         <div class="btn-group-vertical mt-5 centralizar" role="group" aria-label="Vertical radio toggle button group">
                             @foreach ($question->options as $index => $option)
                                 <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio{{$index}}" autocomplete="off" value="{{$option->id}}">
-                                <label class="btn btn-outline-info mb-3" for="vbtn-radio{{$index}}">{{ $option->description}}</label>
+                                <label class="btn btn-outline-info mb-3" for="vbtn-radio{{$index}}">{{ $option->name}} - {{ $option->description}}</label>
                             @endforeach
                         </div>
                         
