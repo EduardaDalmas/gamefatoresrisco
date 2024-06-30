@@ -50,7 +50,12 @@ class Questionnaire extends Model
     }
 
     public static function getOpenedsCurrentUser() : Collection {
-        return self::all();
+        return self::whereHas('teams', function ($query) {
+            $query->whereHas('people', function ($query) {
+                $query->where('person_id',  auth()->id());
+            });
+        })
+        ->get();
     }
 
     public static function getByOwner() : Collection {
