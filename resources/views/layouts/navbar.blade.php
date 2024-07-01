@@ -23,7 +23,7 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('home') }}">{{ __('Grupos de participantes') }}</a>
+                    <a class="nav-link active" href="{{ route('teams.index') }}">{{ __('Grupos de participantes') }}</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

@@ -86,7 +86,11 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     Route::name('teams.')->prefix('teams')->group(callback: function () {
         Route::name('index')->get('index',                   [TeamsController::class, 'index']);
-        Route::name('show')->get('{team}',                     [TeamsController::class, 'show']);
+        Route::name('edit')->get('{team}/edit',                     [TeamsController::class, 'edit']);
+        Route::name('store')->post('store',                     [TeamsController::class, 'store']);
+        Route::name('update')->put('{team}/update',                     [TeamsController::class, 'update']);
+        Route::name('destroy-person')->post('{team}/destroy-person',                     [TeamsController::class, 'destroy_person']);
+        Route::name('destroy')->post('{team}/destroy',                     [TeamsController::class, 'destroy']);
     });
 
 });

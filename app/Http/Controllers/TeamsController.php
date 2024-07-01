@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostTeamRequest;
+use App\Models\Person;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
@@ -38,39 +39,77 @@ class TeamsController extends Controller
     public function store(PostTeamRequest $request)
     {
         $validated = $request->validated();
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Team $team)
-    {
-        $people_team = $team->people()->get();
+        $newTeam = new Team();
+        $newTeam->name = $validated['team_name'];
+        
+        $newTeam->save();
 
-        return view('teams.detail', ['data' => $people_team]);
+        return redirect()->route('teams.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Team $team)
     {
-        //
+        $people_team = $team->people()->get();
+        $people = Person::all();
+
+        $people_avaibles = array();
+
+        foreach ($people as $person) {
+            $isInTeam = false;
+
+            foreach ($people_team as $person_team) {
+                if ($person_team->id == $person->id) {
+                    $isInTeam = true;
+                    break;
+                }
+            }
+
+            if (!$isInTeam) {
+                array_push($people_avaibles, $person);
+            }
+        }
+
+        $result = array();
+
+        $result['people_team'] = $people_team;
+        $result['people_avaibles'] = $people_avaibles;
+        $result['team'] = $team;
+
+        return view('teams.edit', ['data' => $result]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Team $team, Request $request)
     {
-        //
+        $person = Person::where('id', $request->input('person_id'))->get();
+     
+        $team->people()->attach($person);
+
+        return redirect()->route('teams.edit', $team->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy_person(Team $team, Request $request)
     {
-        //
+        $person = Person::where('id', $request->input('person_team_id'))->get();
+     
+        $team->people()->detach($person);
+
+        return redirect()->route('teams.edit', $team->id);
+    }
+
+    public function destroy(Team $team)
+    {
+        $team->delete();
+
+        return redirect()->route('teams.index');
     }
 }
