@@ -15,7 +15,7 @@
                             </div>
                         </div>
                        
-                        <form action="{{ route("questionnaire.update", ['questionnaire' => $questionnaire->id]) }}" method="POST">
+                        <form id="questionnaire-form-edit" action="{{ route('questionnaire.update', ['questionnaire' => $questionnaire->id]) }}" method="POST">
                             @method('PUT')
                             @csrf
                             <div class="mb-3">
@@ -23,11 +23,38 @@
                                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') ?? $questionnaire->name }}">
                             </div>
                             <div class="mb-3">
+                                <label for="team_name" class="form-label">
+                                    Grupo de Participantes <i class="bi bi-people-fill"></i> <span class="text-danger fw-bold"> *</span>
+                                </label>
+                                <select class="form-select" aria-label="Default select example" id="team" name="team" >
+                                    <option selected>Selecione o Grupo de Participante</option>
+                                    @foreach ($teams_avaibles as $team)
+                                        <option value="{{ $team->id }}">{{ $team->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="col-2">
+                                    <button type="submit" class="btn btn-outline-success btn-sm mt-2" id="addTeam">Adicionar</button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                @foreach($questionnaire_teams as $team)
+                                    <div class="row">
+                                        <div class="col-8">{{ $team->name }}</div>
+                                        <div class="col-2">
+                                            <a class="btn btn-danger" href="{{ route('teams.detach_questionnaire', [$team->id, $questionnaire->id])}}">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <br><hr><br>
+                                @endforeach 
+                            </div>
+                            <div class="mb-3">
                                 <label for="description" id="labelObjetivo">Objetivo</label>
                                 <textarea name="description" id="description" rows="4" class="form-control">{{ old('description') ?? $questionnaire->description }}</textarea>
                             </div>
                             <div class="form-check col-12 mb-4">
-                                <input class="form-check-input" type="checkbox" name="roulette" id="roulette" {{ $questionnaire->roulette ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="roulette" id="roulette" {{ $questionnaire->roulette ? 'checked' : '' }} >
                                 <label class="form-check-label" for="roulette">
                                     Utilizar a roleta
                                 </label>

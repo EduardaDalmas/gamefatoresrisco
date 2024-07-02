@@ -15,11 +15,21 @@
                             </div>
                         </div>
                   
-                        <form action="{{ route("questionnaire.save") }}" method="POST">
+                        <form action="{{ route('questionnaire.save') }}" method="POST">
                             @csrf
                             <div class="form-group col-12">
                                 <label for="name" id="labelNome">Nome do questionário</label><span class="text-danger fw-bold"> *</span>
                                 <input type="text" class="form-control" id="name" name="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="team_name" class="form-label" >
+                                    Grupo de Participantes <i class="bi bi-people-fill"></i> <span class="text-danger fw-bold"> *</span>
+                                </label>
+                                <select class="form-select" id="teams" name="teams[]" data-placeholder="Choose anything" multiple>
+                                    @foreach ($teams as $team)
+                                        <option value="{{ $team->id }}">{{ $team->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group col-12">
                                 <label for="description" id="labelObjetivo">Objetivo</label>
