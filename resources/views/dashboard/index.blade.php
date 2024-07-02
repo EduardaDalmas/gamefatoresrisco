@@ -18,31 +18,35 @@
                                     <div class="card-body">
                                         <!-- Conteúdo da pergunta -->
                                         <div class="row mb-2">
-                                            <div class="col-lg-10">
+                                            <div class="col-lg-4">
+                                                <h6>Questionário</h6>
                                                 <h5>{{ $questionnaire->name }}</h5>
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-4">
+                                                <h6>Quantidade respostas</h6>
                                                 <h5>{{ $questionnaire->responded_people }} / {{ $questionnaire->total_people }}</h5>
                                             </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-9"></div>
-                                            <div class="col-lg-3 text-center">
-                                                <div class="btn-group" role="group">
-                                                    <a href="{{ route('dashboard.questionnaire', ['questionnaire' => $questionnaire]) }}" class="btn btn-primary btn-sm">Respostas</a>
+                                            <div class="col-4 ">
+                                                <div class="text-center">
+                                                    <h6>Respostas</h6>
+                                                    <div class="btn-group" role="group">
+                                                        <a href="{{ route('dashboard.questionnaire', ['questionnaire' => $questionnaire]) }}" class="btn btn-custom btn-sm">Gerais</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-8"><h6>Grupo</h6></div>
-                                            <div class="col-4"></div>
-                                        </div>
+                                        <hr>
+                                       
                                         @foreach($questionnaire->teams as $team)
                                             <div class="row">
-                                                <div class="col-8">{{ $team->name }}</div>
-                                                <div class="col-4">
+                                                <div class="col-9">
+                                                   <h6>Grupo</h6>
+                                                    {{ $team->name }}
+                                                </div>
+                                                <div class="col-3">
+                                                    <h6>Respostas</h6>
                                                     <div class="btn-group" role="group">
-                                                        <a href="{{ route('dashboard.team', ['questionnaire' => $questionnaire, 'team' => $team]) }}" class="btn btn-primary btn-sm">Respostas</a>
+                                                        <a href="{{ route('dashboard.team', ['questionnaire' => $questionnaire, 'team' => $team]) }}" class="btn btn-custom btn-sm">Time</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -50,11 +54,7 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                         @endforeach
-
                     </div>
                 </div>
             </div>
