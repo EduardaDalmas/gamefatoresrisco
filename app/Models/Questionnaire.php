@@ -61,4 +61,22 @@ class Questionnaire extends Model
     public static function getByOwner() : Collection {
         return self::where('user_id', auth()->id())->get();
     }
+
+
+    public function getTotalPeopleAttribute()
+    {
+        // Obtém o total de pessoas que estão nos times associados ao questionário
+        return $this->teams()->withCount('people')->get()->sum('people_count');
+    }
+
+    public function getRespondedPeopleAttribute()
+    {
+        // Obtém o total de pessoas que já responderam ao questionário
+        return \App\Models\Answer::whereHas('option.question.topic', function ($query) {
+            $query->where('questionnaire_id', $this->id);
+        })->distinct('person_id')->count('person_id');
+    }
+
+
+
 }

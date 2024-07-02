@@ -28,7 +28,7 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('home') }}">{{ __('Relatórios') }}</a>
+                    <a class="nav-link active" href="{{ route('dashboard.index') }}">{{ __('Relatórios') }}</a>
                 </li>
             </ul>
         </div>
