@@ -28,7 +28,7 @@
                                         <select class="form-select" aria-label="Default select example" id="person_id" name="person_id" >
                                             <option selected>Selecione o Participante</option>
                                             @foreach ($data['people_avaibles'] as $person)
-                                                <option value="{{ $person->id }}">{{ $person->name }}</option>
+                                                <option value="{{ $person->id }}">{{ $person->user->email }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -45,6 +45,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Participante</th>
+                                        <th scope="col">Email</th>
                                         <th scope="col"></th>
                                         <th scope="col"></th>
                                     </tr>
@@ -53,6 +54,7 @@
                                     @foreach ($data['people_team'] as $team)
                                         <tr>
                                             <td>{{ $team->name }}</td>
+                                            <td>{{ $team->user->email }}</td>
                                             <td>
                                                
                                                 <form id="delete-form-{{ $team->id }}" action="{{ route('teams.destroy-person', $data['team']->id) }}" method="POST" >

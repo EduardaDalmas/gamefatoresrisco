@@ -56,6 +56,14 @@ class TeamsController extends Controller
         $people_team = $team->people()->get();
         $people = Person::all();
 
+        foreach ($people_team as $person_team) {
+            $person_team = $person_team->user->get();
+        }
+
+        foreach ($people as $person) {
+            $person = $person->user->get();
+        }
+
         $people_avaibles = array();
 
         foreach ($people as $person) {

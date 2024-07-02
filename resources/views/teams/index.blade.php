@@ -23,7 +23,7 @@
                                         <input type="text" class="form-control" id="team_name" name="team_name" placeholder="name@example.com">
                                     </div>
                                     <div class="col-auto">
-                                        <button type="submit" class="btn text-white" style="background-color: #F615E0;">Salvar</button>
+                                        <button type="submit" class="btn text-white" style="background-color: #F615E0;">Adicionar</button>
                                     </div>
                                 </div>
                                     
