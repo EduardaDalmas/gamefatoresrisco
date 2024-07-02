@@ -81,10 +81,12 @@ class QuestionnaireController extends Controller
             $topic->save();
         }
 
-        if($request->input('team') !== null) {
-            $team = Team::where('id', $request->input('team'))->firstOrFail();
-            $team->questionnaires()->attach($questionnaire);
-        }
+        // if($request->input('team') !== null) {
+        //     $team = Team::where('id', $request->input('teams'))->firstOrFail();
+        //     $team->questionnaires()->attach($questionnaire);
+        // }
+
+        $questionnaire->teams()->attach($request->teams);
 
         return redirect()->route('questionnaire.edit', $questionnaire);
     }
