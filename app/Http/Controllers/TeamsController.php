@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostTeamRequest;
 use App\Models\Person;
+use App\Models\Questionnaire;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
@@ -120,4 +121,11 @@ class TeamsController extends Controller
 
         return redirect()->route('teams.index');
     }
+
+    public function detach_questionnaire(Team $team, Questionnaire $questionnaire)
+    {
+        $team->questionnaires()->detach($questionnaire);
+
+        return redirect()->back();
+    } 
 }

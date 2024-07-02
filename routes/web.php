@@ -96,6 +96,7 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('update')->put('{team}/update',                     [TeamsController::class, 'update']);
         Route::name('destroy-person')->post('{team}/destroy-person',                     [TeamsController::class, 'destroy_person']);
         Route::name('destroy')->post('{team}/destroy',                     [TeamsController::class, 'destroy']);
+        Route::name('detach_questionnaire')->get('{team}/{questionnaire}', [TeamsController::class, 'detach_questionnaire']);
     });
 });
 
