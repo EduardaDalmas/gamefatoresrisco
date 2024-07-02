@@ -20,8 +20,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\TeamsController;
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
-
 Route::name('login') ->get('/login',  [HomeController::class, 'login']);
 Auth::routes();
 Route::name('goout') ->get('/goout',  [HomeController::class, 'logout']);
@@ -37,6 +35,13 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('question')->get('topic/{topic}',                 [ResponseController::class, 'question']);
         Route::name('finish')->get('finish',                          [ResponseController::class, 'finish']);
     });
+
+    Route::name('dashboard.')->prefix('dashboard')->group(callback: function () {
+        Route::name('index')->get('', [DashboardController::class, 'index']);
+        Route::name('questionnaire')->get('questionnaire/{questionnaire}', [DashboardController::class, 'questionnaire']);
+        Route::name('team')->get('questionnaire/{questionnaire}/team/{team}', [DashboardController::class, 'team']);
+    });
+
 
     Route::post('/upload/video', [MediaController::class, 'videoUpload'])->name('media.video.upload');
     Route::post('/upload/image', [MediaController::class, 'imageUpload'])->name('media.image.upload');
@@ -92,7 +97,6 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::name('destroy-person')->post('{team}/destroy-person',                     [TeamsController::class, 'destroy_person']);
         Route::name('destroy')->post('{team}/destroy',                     [TeamsController::class, 'destroy']);
     });
-
 });
 
 
