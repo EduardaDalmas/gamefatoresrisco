@@ -21,11 +21,11 @@
                                 <label for="name" id="labelNome">Nome do questionário</label><span class="text-danger fw-bold"> *</span>
                                 <input type="text" class="form-control" id="name" name="name">
                             </div>
-                            <div class="mb-3">
-                                <label for="team_name" class="form-label" >
+                            <div class="form-group mb-3 col-12">
+                                <label for="team_name" class="form-label">
                                     Grupo de Participantes <i class="bi bi-people-fill"></i> <span class="text-danger fw-bold"> *</span>
                                 </label>
-                                <select class="form-select" id="teams" name="teams[]" data-placeholder="Choose anything" multiple>
+                                <select class="form-select js-example-basic-multiple" id="teams" name="teams[]" data-placeholder="Escolha os grupos de participantes" multiple="multiple">
                                     @foreach ($teams as $team)
                                         <option value="{{ $team->id }}">{{ $team->name }}</option>
                                     @endforeach
@@ -67,4 +67,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
 @endsection

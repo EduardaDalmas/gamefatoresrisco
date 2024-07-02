@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 mt-5 mb-5">
-                <div class="card centralizar p-5">
+                <div class="card p-5">
                     <div class="card-body">
                         <div class="mb-3 row align-items-center">
                             <div class="col-auto">
@@ -26,15 +26,11 @@
                                 <label for="team_name" class="form-label">
                                     Grupo de Participantes <i class="bi bi-people-fill"></i> <span class="text-danger fw-bold"> *</span>
                                 </label>
-                                <select class="form-select" aria-label="Default select example" id="team" name="team" >
-                                    <option selected>Selecione o Grupo de Participante</option>
+                                <select class="form-select js-example-basic-multiple" id="teams" name="teams[]" data-placeholder="Escolha os grupos de participantes" multiple="multiple">
                                     @foreach ($teams_avaibles as $team)
                                         <option value="{{ $team->id }}">{{ $team->name }}</option>
                                     @endforeach
                                 </select>
-                                <div class="col-2">
-                                    <button type="submit" class="btn btn-outline-success btn-sm mt-2" id="addTeam">Adicionar</button>
-                                </div>
                             </div>
                             <div class="mb-3">
                                 @foreach($questionnaire_teams as $team)
@@ -100,4 +96,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
 @endsection
