@@ -26,8 +26,7 @@
                                             <label for="team_name" class="form-label">
                                                 Novo Partipante <i class="bi bi-people-fill"></i> <span class="text-danger fw-bold"></span>
                                             </label>
-                                            <select class="form-select" aria-label="Default select example" id="person_id" name="person_id" >
-                                                <option selected>Selecione o Participante</option>
+                                            <select class="form-select js-example-basic-multiple" data-placeholder="Escolha os grupos de participantes" id="person_id" name="person_id[]" multiple="multiple">
                                                 @foreach ($data['people_avaibles'] as $person)
                                                     <option value="{{ $person->id }}">{{ $person->user->email }}</option>
                                                 @endforeach
@@ -78,4 +77,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
 @endsection
