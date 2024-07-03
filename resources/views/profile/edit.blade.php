@@ -101,7 +101,7 @@
                             @method('put')
 
                             <div class="mb-2">
-                                <label for="update_password_current_password" class="text-dark">{{ __('Current Password') }}</label>
+                                <label for="update_password_current_password" class="text-dark">{{ __('Senha atual') }}</label>
                                 <input id="update_password_current_password" name="current_password" type="password"  class="form-control"  autocomplete="current-password">
                                 @if ($errors->updatePassword->has('current_password'))
                                     <ul class="mt-2 text-sm text-red-600">
@@ -113,7 +113,7 @@
                             </div>
 
                             <div class="mb-2">
-                                <label for="update_password_password" class="text-dark">{{ __('New Password') }}</label>
+                                <label for="update_password_password" class="text-dark">{{ __('Nova senha') }}</label>
                                 <input id="update_password_password" name="password" type="password"  class="form-control"  autocomplete="new-password">
                                 @if ($errors->updatePassword->has('password'))
                                     <ul class="mt-2 text-sm text-red-600">
@@ -125,7 +125,7 @@
                             </div>
 
                             <div class="mb-2">
-                                <label for="update_password_password_confirmation" class="text-dark">{{ __('Confirm Password') }}</label>
+                                <label for="update_password_password_confirmation" class="text-dark">{{ __('Confirmar senha') }}</label>
                                 <input id="update_password_password_confirmation" name="password_confirmation" type="password" class="form-control"  autocomplete="new-password">
                                 @if ($errors->updatePassword->has('password_confirmation'))
                                     <ul class="mt-2 text-sm text-red-600">
