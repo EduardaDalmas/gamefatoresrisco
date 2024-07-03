@@ -19,17 +19,15 @@ class DashboardController extends Controller
     {
         $service = new QuantityService($questionnaire);
 
-        dd($service->get());
-
-
+        return view('dashboard.view')
+            ->with('topics', $service->get());
     }
 
     public function team(Questionnaire $questionnaire, Team $team)
     {
         $service = new QuantityService($questionnaire, $team);
 
-        dd($service->get());
-
-
+        return view('dashboard.view')
+            ->with('topics', $service->get());
     }
 }
