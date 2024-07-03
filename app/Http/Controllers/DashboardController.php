@@ -15,7 +15,7 @@ class DashboardController extends Controller
         return view('dashboard.index')
             ->with('questionnaires', Questionnaire::getByOwner());
     }
-    public function questionnaire(Questionnaire $questionnaire)
+    public function questionnaire(Questionnaire $questionnaire, Team $team)
     {
         $service = new QuantityService($questionnaire);
 
