@@ -32,8 +32,6 @@
                                     <div class="row">
                                         <div class="col-auto"><i class="bi bi-bookmark-check icone-topico"></i></div>
                                         <div class="col-auto"><h4>Tópico:  {{ $topic->name }}</h4></div>
-                                        
-                                        
                                     </div>
                                 
                                     {{-- <div class="collapse collapse-horizontal" id="collapse-topic-{{ $loop->index }}"> --}}
@@ -57,7 +55,6 @@
                                                 @endif
                                             @endforeach
                                         </div>
-                                        
                                     {{-- </div> --}}
                                 </div>
                             @endforeach

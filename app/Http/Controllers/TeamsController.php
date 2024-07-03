@@ -96,9 +96,10 @@ class TeamsController extends Controller
      */
     public function update(Team $team, Request $request)
     {
-        $person = Person::where('id', $request->input('person_id'))->get();
-     
-        $team->people()->attach($person);
+
+        $people = Person::whereIn('id', $request->input('person_id'))->get();
+ 
+        $team->people()->attach($people);
 
         return redirect()->route('teams.edit', $team->id);
     }

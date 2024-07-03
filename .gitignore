@@ -34,3 +34,7 @@ Homestead.json
 /.idea/vcs.xml
 /.idea/.gitignore
 /.idea/dataSources.xml
+
+
+public/images
+public/videos
