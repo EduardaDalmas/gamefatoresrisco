@@ -37,9 +37,9 @@ Route::middleware(['web', 'auth'])->group(function () {
     });
 
     Route::name('dashboard.')->prefix('dashboard')->group(callback: function () {
-        Route::name('index')->get('', [DashboardController::class, 'index']);
-        Route::name('questionnaire')->get('questionnaire/{questionnaire}', [DashboardController::class, 'questionnaire']);
-        Route::name('team')->get('questionnaire/{questionnaire}/team/{team}', [DashboardController::class, 'team']);
+        Route::name('index')              ->get('', [DashboardController::class, 'index']);
+        Route::name('questionnaire')      ->get('questionnaire/{questionnaire}', [DashboardController::class, 'questionnaire']);
+        Route::name('team')               ->get('questionnaire/{questionnaire}/team/{team}', [DashboardController::class, 'team']);
     });
 
 

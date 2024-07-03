@@ -17,12 +17,15 @@
     <h3 class="text-center mt-5">Escolha um dos questionários abaixo para começar</h3>
     <div class="row justify-content-center">
         @foreach ($questionnaires as $questionnaire)
-        <div class="col-md-5">
-            <div class="card card-custom-questionnaire">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $questionnaire->name }}</h5>
-                    <p class="card-text">{{ $questionnaire->description }}</p>
-                    <a href="{{ route('response.topic', ['questionnaire' => $questionnaire->id]) }}" class="btn btn-custom">Iniciar</a>
+            <div class="col-md-5">
+                <div class="card card-custom-questionnaire">
+                    <div class="card-body">
+                        @if($questionnaire->all_responded)
+                            <h2 style="color: red">Tudo Respondido</h2>
+                        @endif
+                        <h5 class="card-title">{{ $questionnaire->name }}</h5>
+                        <p class="card-text">{{ $questionnaire->description }}</p>
+                        <a href="{{ route('response.topic', ['questionnaire' => $questionnaire->id]) }}" class="btn btn-custom">Iniciar</a>
                     </div>
                 </div>
             </div>

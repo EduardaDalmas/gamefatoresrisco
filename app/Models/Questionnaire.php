@@ -52,10 +52,26 @@ class Questionnaire extends Model
     public static function getOpenedsCurrentUser() : Collection {
         return self::whereHas('teams', function ($query) {
             $query->whereHas('people', function ($query) {
-                $query->where('person_id',  auth()->id());
+                $query->where('person_id', auth()->id());
             });
         })
-        ->get();
+            ->with(['topics.questions.options' => function ($query) {
+                $query->select('id', 'question_id');
+            }])
+            ->get()
+            ->map(function ($questionnaire) {
+                $allResponded = $questionnaire->topics->every(function ($topic) {
+                    return $topic->questions->every(function ($question) {
+                        return $question->options->every(function ($option) {
+                            return Answer::where('option_id', $option->id)
+                                ->where('person_id', auth()->id())
+                                ->exists();
+                        });
+                    });
+                });
+                $questionnaire->all_responded = $allResponded;
+                return $questionnaire;
+            });
     }
 
     public static function getByOwner() : Collection {
@@ -72,11 +88,8 @@ class Questionnaire extends Model
     public function getRespondedPeopleAttribute()
     {
         // Obtém o total de pessoas que já responderam ao questionário
-        return \App\Models\Answer::whereHas('option.question.topic', function ($query) {
+        return Answer::whereHas('option.question.topic', function ($query) {
             $query->where('questionnaire_id', $this->id);
         })->distinct('person_id')->count('person_id');
     }
-
-
-
 }
