@@ -8,6 +8,9 @@
                     <div class="card-body">
                         <div class="mb-3 row align-items-center">
                             <div class="col-auto">
+                                <a href="{{ route('dashboard.index') }}"> <i class="bi bi-arrow-left-short icone"></i></a>
+                            </div>
+                            <div class="col-auto">
                                 <h4>Relatórios</h4>
                             </div>
                         </div>
@@ -15,38 +18,54 @@
 
                         @foreach ($topics as $topic)
                             <div class="col-lg-12 mb-4">
-                                <div class="card card-custom">
-                                    <div class="card-body">
-                                        <!-- Conteúdo do Tópico -->
-                                        <div class="row mb-2">
-                                            <div class="col-lg-10">
-                                                <h5>{{ $topic['topic'] }}</h5>
+                                <div class="row">
+                                    <div class="col-auto"><i class="bi bi-bookmark-check icone-topico"></i></div>
+                                    <div class="col-auto"><h4>Tópico:  {{ $topic['topic'] }}</h4></div>
+                                </div>
+                                
+                                <div class="card card-body">
+                                    @foreach($topic['questions'] as $index => $question)
+                                        <p><b> Questão: {{ $question['question'] }}</b></p>
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <h6>Alternativas</h6>
+                                            </div>
+                                            <div class="col-2">
+                                                <h6>Respostas</h6>
                                             </div>
                                         </div>
-                                        <!-- Conteúdo das Perguntas -->
-                                        @foreach($topic['questions'] as $question)
-                                            <div class="row mb-2">
-                                                <div class="col-lg-10">
-                                                    <h6>{{ $question['question'] }}</h6>
-                                                </div>
-                                            </div>
-                                            @if(!empty($question['options']))
-                                                <div class="row mb-3">
-                                                    <div class="col-lg-12">
-                                                        <ul>
-                                                            @foreach($question['options'] as $option)
-                                                                <li>{{ $option['option'] }} - {{ $option['answers'] }}</li>
-                                                            @endforeach
-                                                        </ul>
+                                
+                                        @if(!empty($question['options']))
+                                            @php
+                                                // Encontrar o maior número de respostas
+                                                $maxAnswers = max(array_column($question['options'], 'answers'));
+                                            @endphp
+                                
+                                            @foreach($question['options'] as $option)
+                                                @php
+                                                    // Determinar a classe de cor com base no número de respostas
+                                                    $answerClass = $option['answers'] == $maxAnswers ? 'selected-answer' : 'no-selected-answer-2';
+                                                @endphp
+                                                <div class="option row {{ $answerClass }}">
+                                                    <div class="col-11">
+                                                        <i class="bi bi-check-circle" style="color: grey;"></i> {{ $option['option'] }}
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <div>{{ $option['answers'] }}</div>
                                                     </div>
                                                 </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
+                                            @endforeach
+                                        @endif
+                                
+                                        @if($index < count($topic['questions']) - 1)
+                                            <hr>
+                                        @endif
+                                    @endforeach
                                 </div>
+                                
+                                
                             </div>
                         @endforeach
-
                     </div>
                 </div>
             </div>
