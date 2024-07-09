@@ -53,10 +53,6 @@ composer install
 echo "Running php artisan migrate..."
 php artisan migrate
 
-# Executar o comando php artisan user:admin
-echo "Running php artisan user:admin..."
-php artisan user:admin
-
 echo "Entrypoint script completed"
 
 # Manter o PHP-FPM rodando
