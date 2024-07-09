@@ -44,7 +44,11 @@
                                             @foreach($question['options'] as $option)
                                                 @php
                                                     // Determinar a classe de cor com base no número de respostas
-                                                    $answerClass = $option['answers'] == $maxAnswers ? 'selected-answer' : 'no-selected-answer-2';
+                                                    if ($option['answers'] == $maxAnswers && $maxAnswers > 0) {
+                                                        $answerClass = 'biggerAnswer';
+                                                    } else {
+                                                        $answerClass = 'no-selected-answer';
+                                                    }
                                                 @endphp
                                                 <div class="option row {{ $answerClass }}">
                                                     <div class="col-11">
@@ -62,7 +66,6 @@
                                         @endif
                                     @endforeach
                                 </div>
-                                
                                 
                             </div>
                         @endforeach
